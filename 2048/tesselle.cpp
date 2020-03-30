@@ -1,6 +1,6 @@
 #include "tesselle.h"
 
-Tesselle::Tesselle(int ident, int nombre, int couleur, int i, int j)
+Tesselle::Tesselle(QObject *parent, int ident, int nombre, int couleur, int i, int j): QObject(parent)
 {
 
 }
@@ -30,7 +30,7 @@ int Tesselle::GetI()
 
 }
 
-int Tesselle::int GetJ()
+int Tesselle::GetJ()
 {
 
 }

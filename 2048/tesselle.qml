@@ -8,7 +8,7 @@ Item {
         anchors.fill: parent
 
         Text {
-            id: titre1
+            id: nombre
             height: 40
             color: "#78726d"
             text: qsTr("2")

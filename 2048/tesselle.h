@@ -1,11 +1,13 @@
 #ifndef TESSELLE_H
 #define TESSELLE_H
 
+#include <QObject>
 
-class Tesselle
+class Tesselle : public QObject
 {
+    Q_OBJECT
 public:
-    Tesselle(int ident, int nombre, int couleur, int iplat, int jplat);
+    explicit Tesselle(QObject *parent, int ident, int nombre, int couleur, int iplat, int jplat);
 
     void SetPosition(int i, int j);
     void IncrNb();
@@ -20,6 +22,9 @@ private:
     int i;
     int j;
     int id;
+
+signals:
+
 };
 
 #endif // TESSELLE_H
