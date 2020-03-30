@@ -48,6 +48,28 @@ Window {
             anchors.topMargin: 8
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle1
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: titre1
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -344,6 +366,8 @@ Window {
             id: new_game
             x: -101
             y: 2
+            width: 72
+            height: 16
             color: "#e8ded6"
             text: qsTr("New Game")
             anchors.horizontalCenter: parent.horizontalCenter
@@ -397,7 +421,7 @@ Window {
 
 /*##^##
 Designer {
-    D{i:2;anchors_height:293;anchors_width:329;anchors_x:30;anchors_y:109}D{i:20;anchors_y:2}
-D{i:22;anchors_y:2}D{i:24;anchors_x:"-101";anchors_y:2}D{i:27;anchors_height:20;anchors_x:3;anchors_y:4}
+    D{i:5;anchors_height:40}D{i:4;anchors_height:75;anchors_width:75}D{i:2;anchors_height:293;anchors_width:329;anchors_x:30;anchors_y:109}
+D{i:22;anchors_y:2}D{i:24;anchors_y:2}D{i:26;anchors_x:"-101";anchors_y:2}D{i:29;anchors_height:20;anchors_x:3;anchors_y:4}
 }
 ##^##*/
