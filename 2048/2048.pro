@@ -16,7 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         plateau.cpp
-
+        tesselle.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,3 +33,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     plateau.h
+    tesselle.h
