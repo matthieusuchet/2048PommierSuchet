@@ -48,6 +48,13 @@ Window {
             anchors.topMargin: 8
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle1
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+            }
         }
 
         Rectangle {
@@ -274,6 +281,13 @@ Window {
             radius : 2
             opacity: 0.8
         }
+
+        Rectangle {
+            id: rectangle
+            width: 200
+            height: 200
+            color: "#ffffff"
+        }
     }
 
     Rectangle {
@@ -397,7 +411,7 @@ Window {
 
 /*##^##
 Designer {
-    D{i:2;anchors_height:293;anchors_width:329;anchors_x:30;anchors_y:109}D{i:20;anchors_y:2}
-D{i:22;anchors_y:2}D{i:24;anchors_x:"-101";anchors_y:2}D{i:27;anchors_height:20;anchors_x:3;anchors_y:4}
+    D{i:4;anchors_height:75;anchors_width:75}D{i:2;anchors_height:293;anchors_width:329;anchors_x:30;anchors_y:109}
+D{i:22;anchors_y:2}D{i:24;anchors_y:2}D{i:26;anchors_x:"-101";anchors_y:2}D{i:29;anchors_height:20;anchors_x:3;anchors_y:4}
 }
 ##^##*/
