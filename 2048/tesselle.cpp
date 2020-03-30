@@ -1,16 +1,42 @@
 #include "tesselle.h"
 
-Tesselle::Tesselle(int nombre, int couleur, int i, int j)
+Tesselle::Tesselle(int ident, int nombre, int couleur, int i, int j)
 {
 
 }
 
-Tesselle(int nombre, int couleur, int i, int j);
+void Tesselle::SetPosition(int i, int j)
+{
 
-void SetPosition(int i, int j);
-void IncrNb();
-void IncrCoul();
-int GetScore();
-int GetI();
-int GetJ();
-void Fusion(Tesselle &t);
+}
+
+void Tesselle::IncrNb()
+{
+
+}
+
+void Tesselle::IncrCoul()
+{
+
+}
+
+int Tesselle::GetScore()
+{
+
+}
+
+int Tesselle::GetI()
+{
+
+}
+
+int Tesselle::int GetJ()
+{
+
+}
+
+void Tesselle::Fusion(Tesselle &t)
+{
+
+}
+
