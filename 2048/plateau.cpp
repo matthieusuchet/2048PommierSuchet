@@ -11,3 +11,4 @@ Plateau::Plateau(int n)
     }
     reset_table(); // initialise à 0 toutes les valeurs de table
 }
+
