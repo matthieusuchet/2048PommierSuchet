@@ -15,6 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp
+        tesselle.cpp
+
+HEADERS += \
+        tesselle.h \
 
 RESOURCES += qml.qrc
 
