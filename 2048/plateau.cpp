@@ -2,13 +2,16 @@
 #include <iostream>
 using namespace std;
 
-Plateau::Plateau(int n)
+Plateau::Plateau(QObject *parent) : QObject(parent)
 {
-    taille = n;
-    table = new int*[taille]; // création du tableau
-    for (int i=0; i<n; i++) {
-        table[i] = new int[n];
+    taille = 4;
+    tab = new int*[taille]; // création du tableau
+    for (int i=0; i<taille; i++) {
+        tab[i] = new int[taille];
     }
     reset_table(); // initialise à 0 toutes les valeurs de table
 }
+
+
+
 

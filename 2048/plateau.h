@@ -3,10 +3,17 @@
 #include <iostream>
 using namespace std;
 
+#include <QObject>
+#include "tesselle.h"
 
-class Plateau
+class Plateau : public QObject
 {
+    Q_OBJECT
 public:
+    explicit Plateau(QObject *parent = nullptr);
+
+    Q_PROPERTY(QString cptQML READ readCompteur NOTIFY cptChanged)
+
     Plateau();
     ~Plateau();
 
@@ -42,6 +49,12 @@ public:
 
     void undo(); // revenir au plateau précédent
     void redo(); // aller au plateau suivant
+
+signals:
+    void cptChanged();
+
+public slots:
+
 
 private:
     int taille; // taille de la table nxn
