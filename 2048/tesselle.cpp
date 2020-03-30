@@ -1,8 +1,12 @@
 #include "tesselle.h"
 
-Tesselle::Tesselle(int ident, int nombre, int couleur, int i, int j)
+Tesselle::Tesselle(int ident, int nombre, int couleur, int iplat, int jplat)
 {
-
+    id = ident;
+    nb = nombre;
+    coul = couleur;
+    i = iplat;
+    j = jplat;
 }
 
 void Tesselle::SetPosition(int i, int j)
