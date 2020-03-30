@@ -1,5 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QtQml>
+#include "plateau.h"
+#include "tesselle.h"
 
 int main(int argc, char *argv[])
 {
