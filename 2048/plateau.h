@@ -20,7 +20,7 @@ public:
     void set_taille(int n);
     void init(); // création du plateau avec 1 ou 2 tesselles random
 
-    void add_tesselle(Tesselle T,int i,int j); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
+    void add_tesselle(Tesselle T); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
     void add_tesselle_random(); // ajoute une tesselle (2 ou 4) de façon aléatoire sur une case libre
 
 
@@ -45,7 +45,8 @@ public:
     bool est_plein(); // le plateau est plein ?
     bool est_vide(); // le plateau est vide ?
     bool a_perdu(); // la partie est finie ? ie. table pleine + aucun déplacement licite
-    void reset_table(); // vide la table de toutes les tesselles
+    void reset_table(); // vide la table de toutes les tesselles, met à 0 toutes les cases
+    void reset_cases_libres(); // met sur true toutes les cases
 
     void undo(); // revenir au plateau précédent
     void redo(); // aller au plateau suivant
@@ -60,8 +61,10 @@ private:
     int taille; // taille de la table nxn
     int **tab; // tableau d'entiers représentant les cases et les tesselles
     int score;
+    void free(); // supprime la variable dynamique tab
 
     int remplissage; // nombre de tesselles dans le tableau
+    int libres; // nombre de cases libres
     bool **cases_libres; // coordonnées des cases libres
 
     int **plateau_mem; // mémorise le plateau du coup d'avant (ou d'après)
