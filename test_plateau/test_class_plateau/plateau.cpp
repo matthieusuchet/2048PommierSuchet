@@ -1,9 +1,13 @@
 #include "plateau.h"
 #include <iostream>
 #include <cstdlib>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 using namespace std;
 
-Plateau::Plateau(QObject *parent) : QObject(parent) // constructeur
+
+Plateau::Plateau()    // QObject *parent) : QObject(parent) // constructeur
 {
     taille = 4;
     score = 0;
@@ -21,6 +25,8 @@ Plateau::Plateau(QObject *parent) : QObject(parent) // constructeur
 
     plateau_mem = tab;
     avant_ou_apres = false;
+
+    srand (time(NULL));
 }
 
 Plateau::~Plateau() // destructeur
@@ -69,16 +75,10 @@ int Plateau::get_score()
     return score;
 }
 
-void Plateau::reset_score()
-{
-    score = 0;
-}
-
 void Plateau::set_taille(int n)
 {
     taille = n;
 }
-
 
 void Plateau::add_tesselle(Tesselle T) // ajouter la tesselle T au plateau
 {
@@ -106,27 +106,46 @@ void Plateau::add_tesselle_random()
     for (int i=0; i<taille; i++) {
         for (int j=0; j<taille; j++) {
             if (cases_libres[i][j]) { // on cherche la b-ième case libre
-                c += 1;
                 if (c == b) {
                     iplat = i; jplat = j;
                 }
+                c += 1;
             }
         }
     }
 
+    int ident = 0;
     int nombre = (rand() % 2 + 1) * 2; // nombre aléatoirement 2 ou 4
-    Tesselle T( 0, nombre, 0, iplat, jplat);
+    int couleur = 0;
+    Tesselle T( ident, nombre, couleur, iplat, jplat);
 
     add_tesselle(T);
 }
 
 void Plateau::init()
 {
-
+    reset_table();
+    int une_ou_deux_tesselles = (rand() % 2); // nombre aléatoirement 0 ou 1
+    add_tesselle_random();
+    if (une_ou_deux_tesselles) {
+        add_tesselle_random();
+    }
 }
 
 
 
+
+
+
+
+void Plateau::Print() {
+    for (int i=0; i<taille; i++) {
+        for (int j=0; j<taille; j++) {
+            cout << tab[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 
 
 

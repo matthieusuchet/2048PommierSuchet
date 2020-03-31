@@ -3,15 +3,13 @@
 #include <iostream>
 using namespace std;
 
-#include <QObject>
 #include "tesselle.h"
 #include "direction.h"
 
-class Plateau : public QObject
+class Plateau
 {
-    Q_OBJECT
 public:
-    explicit Plateau(QObject *parent = nullptr);
+    // explicit Plateau(QObject *parent = nullptr);
 
     // Q_PROPERTY(QString cptQML READ readCompteur NOTIFY cptChanged)
 
@@ -23,7 +21,6 @@ public:
     void reset_table(); // vide la table de toutes les tesselles
 
     int get_score();
-    void reset_score();
     void set_taille(int n);
 
     void add_tesselle(Tesselle T); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
@@ -46,10 +43,18 @@ public:
     void undo(); // revenir au plateau précédent
     void redo(); // aller au plateau suivant
 
-signals:
-    void cptChanged();
 
-public slots:
+
+    void Print();
+
+
+
+
+
+//signals:
+//    void cptChanged();
+
+//public slots:
 
 
 private:
