@@ -34,7 +34,7 @@ int Tesselle::GetI()
 
 }
 
-int Tesselle::int GetJ()
+int Tesselle::GetJ()
 {
 
 }

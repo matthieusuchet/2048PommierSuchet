@@ -5,6 +5,7 @@ using namespace std;
 
 #include <QObject>
 #include "tesselle.h"
+#include "direction.h"
 
 class Plateau : public QObject
 {
@@ -12,7 +13,7 @@ class Plateau : public QObject
 public:
     explicit Plateau(QObject *parent = nullptr);
 
-    Q_PROPERTY(QString cptQML READ readCompteur NOTIFY cptChanged)
+    // Q_PROPERTY(QString cptQML READ readCompteur NOTIFY cptChanged)
 
     Plateau();
     ~Plateau();
@@ -27,9 +28,17 @@ public:
     // Déplacement des tesselles
     void move_horizontal(int i,int j,int y); // déplacement horizontal de la tesselle initialement en (i,j) vers l'ordonnée y
     void move_vertical(int i,int j,int y); // déplacement vertical de la tesselle initialement en (i,j) vers l'abscisse x
-    void move(Direction dir); // maj du plateau lors d'un appui sur une flèche
+    void move(int dir); // maj du plateau lors d'un appui sur une flèche
+    // direction
+    //
+    //
 
-    bool possible_move(Direction dir); // est ce qu'un déplacement dans cette direction conduit à une modification du plateau, et donc à une progression dans le jeu ?
+
+    bool possible_move(int dir); // est ce qu'un déplacement dans cette direction conduit à une modification du plateau, et donc à une progression dans le jeu ?
+    //
+    // idem direction
+    //
+    //
     void gauche();
     void droite();
     void haut();
