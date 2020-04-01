@@ -9,8 +9,13 @@ Tesselle::Tesselle(int ident, int nombre, int couleur, int iplat, int jplat)
     j = jplat;
 }
 
+Tesselle::Tesselle()
+{
+    Tesselle(0,0,0,0,0);
+}
+
 ostream& operator<<(ostream &sortie, Tesselle &d) { // opérateur <<
-    sortie << "[" << " " << d.nb << " " << d.i << " " << d.j << " " << "]";
+    sortie << "[" << " " << d.nb << " " << "]"; //<< " " << d.i << " " << d.j << " " << "]";
     return sortie;
 }
 

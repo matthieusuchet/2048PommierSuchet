@@ -7,6 +7,7 @@ class Tesselle
 {
 public:
     Tesselle(int ident, int nombre, int couleur, int iplat, int jplat);
+    Tesselle();
 
     friend ostream& operator<<(ostream &sortie, Tesselle &d); // opérateur <<
 

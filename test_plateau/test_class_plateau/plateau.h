@@ -1,6 +1,7 @@
 #ifndef PLATEAU_H
 #define PLATEAU_H
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "tesselle.h"
@@ -9,12 +10,10 @@ using namespace std;
 class Plateau
 {
 public:
-    // explicit Plateau(QObject *parent = nullptr);
 
-    // Q_PROPERTY(QString cptQML READ readCompteur NOTIFY cptChanged)
+    Plateau(); // constructeur
 
-    Plateau();
-    ~Plateau();
+    friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
 
     bool est_plein(); // le plateau est plein ?
     bool est_vide(); // le plateau est vide ?
@@ -42,34 +41,18 @@ public:
 
     void undo(); // revenir au plateau précédent
     void redo(); // aller au plateau suivant
-
-
-
-    void Print();
-
-
-
-
-
-//signals:
-//    void cptChanged();
-
-//public slots:
-
+    void copie_plateau_mem(); // copier tab dans plateau_mem
 
 private:
-    int taille;         // taille de la table nxn
+    int taille;              // taille de la table nxn
     int score;
-    int remplissage;    // nombre de tesselles dans le tableau
-    int libres;         // nombre de cases libres
+    int remplissage;         // nombre de tesselles dans le tableau
+    int libres;              // nombre de cases libres
+    Tesselle tab [4][4];     // tableau d'entiers représentant les cases et les tesselles
+    bool cases_libres [4][4];// coordonnées des cases libres
 
-    int **tab;          // tableau d'entiers représentant les cases et les tesselles
-    bool **cases_libres;// coordonnées des cases libres
-
-    void free();        // supprime la variable dynamique tab
-
-    int **plateau_mem;  // mémorise le plateau du coup d'avant (ou d'après)
-    bool avant_ou_apres;// indique s'il s'agit du plateau suivant ou précédent
+    Tesselle plateau_mem [4][4];// mémorise le plateau du coup d'avant (ou d'après)
+    bool avant_ou_apres;        // indique s'il s'agit du plateau suivant ou précédent
 };
 
 #endif // PLATEAU_H

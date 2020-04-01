@@ -10,40 +10,18 @@ using namespace std;
 Plateau::Plateau()    // QObject *parent) : QObject(parent) // constructeur
 {
     taille = 4;
-    score = 0;
-    remplissage = 0;
-    libres = taille*taille;
-
-    tab = new int*[taille]; // création du tableau tab
-    cases_libres = new bool*[taille]; // création du tableau cases_libres
-    for (int i=0; i<taille; i++) {
-        tab[i] = new int[taille];
-        cases_libres[i] = new bool[taille];
-    }
-
-    reset_table(); // initialisation de tab et cases_libres
-
-    plateau_mem = tab;
-    avant_ou_apres = false;
-
+    reset_table();
     srand (time(NULL));
 }
 
-Plateau::~Plateau() // destructeur
-{
-   free();
-}
-
-void Plateau::free()
-{
-    for (int i=0; i<taille; i++) {
-        delete [] tab[i];
-        delete [] cases_libres[i];
-    }
-    delete [] tab;
-    delete [] cases_libres;
-    tab = nullptr;
-    cases_libres = nullptr;
+ostream& operator<<(ostream &sortie, Plateau &p) {  // opérateur <<
+    for (int i=0; i<p.taille; i++) {
+        for (int j=0; j<p.taille; j++) {
+            sortie << p.tab[i][j] << " ";
+        }
+        sortie << endl;
+    };
+    return sortie;
 }
 
 
@@ -57,17 +35,20 @@ bool Plateau::est_vide()
     return (remplissage == 0);
 }
 
-void Plateau::reset_table()
+void Plateau::reset_table() // initialisation de tab, cases_libres et plateau_mem
 {
+    Tesselle T_init(0,0,0,0,0);
     for (int i=0; i<taille; i++) {
         for (int j=0; j<taille; j++) {
-            tab[i][j] = 0;
+            tab[i][j] = T_init;
             cases_libres[i][j] = true;
+            plateau_mem[i][j] = T_init;
         }
-    };
+    }
+    score = 0;
     remplissage = 0;
     libres = taille*taille;
-    score = 0;
+    avant_ou_apres = false;
 }
 
 int Plateau::get_score()
@@ -85,12 +66,12 @@ void Plateau::add_tesselle(Tesselle T) // ajouter la tesselle T au plateau
     //
     // ajouter EXCEPTION si (cases_libres[i][j] == false) //
     //
-    plateau_mem = tab;                  // on mémorise le plateau avant de le modifier
+
+    copie_plateau_mem();                // on mémorise le plateau avant de le modifier
     int i = T.GetI(); int j = T.GetJ(); // coordonnées de la tesselle
-    tab[i][j] = T.GetScore();
+    tab[i][j] = T;
     cases_libres[i][j] = false;
-    remplissage += 1;
-    libres -= 1;
+    remplissage ++; libres --;
     score += T.GetScore();
 }
 
@@ -133,20 +114,13 @@ void Plateau::init()
 }
 
 
-
-
-
-
-
-void Plateau::Print() {
+void Plateau::copie_plateau_mem()
+{
     for (int i=0; i<taille; i++) {
         for (int j=0; j<taille; j++) {
-            cout << tab[i][j] << " ";
+            plateau_mem[i][j] = tab[i][j];
         }
-        cout << endl;
     }
 }
-
-
 
 
