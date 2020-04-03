@@ -6,6 +6,11 @@ class Direction
 {
 public:
     Direction();
+
+    bool gauche();
+    bool droite();
+    bool haut();
+    bool bas();
 };
 
 #endif // DIRECTION_H

@@ -26,17 +26,14 @@ public:
     void add_tesselle_random(); // ajoute une tesselle (2 ou 4) de façon aléatoire sur une case libre
     void init(); // création du plateau avec 1 ou 2 tesselles random
 
-    void deplacement(int i,int j,int x, int y); // déplacer la tesselle initialement en (i,j) vers (x,y)
-    void move(Direction dir); // maj du plateau lors d'un appui sur une flèche
+    void deplacement(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new); // déplacer la tesselle initialement en x_old vers x_new dans le vecteur vect_tess
+    void fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new); // fusionne les deux tesselles en x_old et x_new en une seule en x_new
+    bool move(Direction dir); // maj du plateau lors d'un appui sur une flèche
+
+    bool gauche_ligne(Tesselle* vect_tess, bool* vect_libres);
 
     bool possible_move(Direction dir); // est ce qu'un déplacement dans cette direction conduit à une modification du plateau, et donc à une progression dans le jeu ?
     bool a_perdu(); // la partie est finie ? ie. table pleine + aucun déplacement licite
-    void gauche(int i);
-    void droite();
-    void haut();
-    void bas();
-
-    void fusion(int i1,int j1,int i2,int j2,int x,int y); // fusionne les deux tesselles en (i1,j1) et (i2,j2) en une seule en (x,y)
 
     void undo(); // revenir au plateau précédent
     void redo(); // aller au plateau suivant

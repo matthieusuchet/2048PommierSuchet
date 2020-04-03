@@ -24,9 +24,9 @@ bool operator==(const Tesselle &t1, const Tesselle &t2)
     return (t1.nb == t2.nb);
 }
 
-void Tesselle::SetPosition(int i, int j)
+void Tesselle::SetPosition(int I, int J)
 {
-
+    i = I; j = J;
 }
 
 void Tesselle::IncrNb()
@@ -56,6 +56,6 @@ int Tesselle::GetJ()
 
 void Tesselle::Fusion(Tesselle &t)
 {
-
+    nb = 2*nb;
 }
 
