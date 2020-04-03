@@ -9,6 +9,7 @@ public:
     Tesselle(int ident, int nombre, int couleur, int iplat, int jplat);
     Tesselle();
 
+    friend bool operator==(const Tesselle &t1, const Tesselle &t2);
     friend ostream& operator<<(ostream &sortie, Tesselle &d); // opérateur <<
 
     void SetPosition(int i, int j);
