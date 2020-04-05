@@ -1,6 +1,5 @@
 #include <iostream>
 #include "plateau.h"
-#include <vector>
 using namespace std;
 
 int main()
@@ -26,8 +25,13 @@ int main()
     cout << P << endl;
     cout << "________" <<endl;
 
-    Direction d;
-    P.move(d);
+    P.move(1);
+
+    cout << P << endl;
+    cout << "________" <<endl;
+    P.add_tesselle_random();
+    P.add_tesselle_random();
+    P.move(3);
 
     cout << P << endl;
     cout << "________" <<endl;
