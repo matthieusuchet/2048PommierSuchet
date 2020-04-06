@@ -98,6 +98,15 @@ void Plateau::add_tesselle_random()
     Tesselle T( ident, nombre, couleur, iplat, jplat);
 
     add_tesselle(T);
+
+    if (a_perdu()) {
+        //
+        //
+        // faire quelque chose si c'est perdu -> fin de partie //
+        //
+        //
+    }
+
 }
 
 
@@ -169,7 +178,7 @@ bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
 }
 
 
-bool Plateau::move(int dir)
+void Plateau::move(int dir)
 {
     copie_tab_mem();      // on mémorise le plateau avant de le modifier
     bool a_bouge = false; // vérifie si au moins un mouvent a été fait
@@ -207,8 +216,6 @@ bool Plateau::move(int dir)
 
     if (a_bouge)
         add_tesselle_random();
-
-    return a_bouge;
 }
 
 
