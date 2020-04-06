@@ -37,6 +37,23 @@ Window {
         anchors.leftMargin: 30
         radius : 2
 
+        Keys.onPressed: {
+            switch (event.key) {
+                case Qt.Key_Up:
+                    actuTab.move(3);
+                    break;
+                case Qt.Key_Down:
+                    actuTab.move(4);
+                    break;
+                case Qt.Key_Left:
+                    actuTab.move(1);
+                    break;
+                case Qt.Key_Right:
+                    actuTab.move(2);
+                    break;
+            }
+        }
+
         Rectangle {
             id: case1
             width: 75
@@ -56,7 +73,7 @@ Window {
                 anchors.fill: parent
 
                 Text {
-                    id: titre1
+                    id: nombre1
                     height: 40
                     color: "#78726d"
                     text: qsTr("2")
@@ -85,6 +102,28 @@ Window {
             anchors.topMargin: 8
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle2
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre2
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -100,6 +139,28 @@ Window {
             anchors.topMargin: 8
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle3
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre3
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -115,6 +176,28 @@ Window {
             anchors.topMargin: 8
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle4
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre4
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -130,6 +213,28 @@ Window {
             anchors.topMargin: 91
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle5
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre5
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -145,6 +250,28 @@ Window {
             anchors.topMargin: 91
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle6
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre6
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -160,6 +287,28 @@ Window {
             anchors.topMargin: 91
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle7
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre7
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -175,6 +324,28 @@ Window {
             anchors.topMargin: 91
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle8
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre8
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -190,6 +361,28 @@ Window {
             anchors.topMargin: 174
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle9
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre9
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -205,6 +398,28 @@ Window {
             anchors.topMargin: 174
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle10
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre10
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -220,6 +435,28 @@ Window {
             anchors.topMargin: 174
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle11
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre11
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -235,6 +472,28 @@ Window {
             anchors.topMargin: 174
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle12
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre12
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -250,6 +509,28 @@ Window {
             anchors.topMargin: 257
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle13
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre13
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -265,6 +546,28 @@ Window {
             anchors.topMargin: 257
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle14
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre14
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -280,6 +583,28 @@ Window {
             anchors.topMargin: 257
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle15
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre15
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
 
         Rectangle {
@@ -295,6 +620,28 @@ Window {
             anchors.topMargin: 257
             radius : 2
             opacity: 0.8
+
+            Rectangle {
+                id: tesselle16
+                color: "#edebe7"
+                radius: 2
+                anchors.fill: parent
+
+                Text {
+                    id: nombre16
+                    height: 40
+                    color: "#78726d"
+                    text: qsTr("2")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: 0
+                    font.pixelSize: 38
+                    font.bold: true
+                    font.family: "Arial"
+                }
+            }
         }
     }
 

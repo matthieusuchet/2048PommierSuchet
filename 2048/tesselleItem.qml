@@ -1,6 +1,8 @@
 import QtQuick 2.0
 
 Item {
+    property alias nombre: nombre
+    property alias tesselle1: tesselle1
     Rectangle {
         id: tesselle1
         color: "#edebe7"
