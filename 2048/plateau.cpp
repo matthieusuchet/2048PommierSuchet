@@ -7,10 +7,12 @@
 using namespace std;
 
 
-Plateau::Plateau()
+Plateau::Plateau(QObject *parent) : QObject(parent)
 {
     reset_table();
     srand (time(NULL));
+    numMove=0;
+    //plateauMoved();
 }
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
@@ -219,7 +221,17 @@ bool Plateau::move(int dir)
     return a_bouge;
 }
 
+void Plateau::print(int num){
+   // cout << "moved" << endl;
+    numMove = num;
+  //  cout << numMove << endl;
+  //  plateauMoved();
+    cout << *this << endl;
+}
+/*
+QString Plateau::readMove(){
+    return QString::number(numMove);
+}
 
-
-
+*/
 

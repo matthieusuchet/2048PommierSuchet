@@ -4,13 +4,20 @@
 #include <vector>
 using namespace std;
 
+#include <QObject>
+
 #include "tesselle.h"
 
-class Plateau
+class Plateau : public QObject
 {
+    Q_OBJECT
 public:
 
-    Plateau(); // constructeur
+    explicit Plateau(QObject *parent = nullptr); // constructeur
+ //   Q_PROPERTY(QString pmoveQML READ readMove NOTIFY plateauMoved)
+    Q_INVOKABLE void print(int num);
+  //  QString readMove();
+
 
     friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
 
@@ -25,7 +32,7 @@ public:
 
     void deplacement(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new); // déplacer la tesselle initialement en x_old vers x_new dans le vecteur vect_tess
     void fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new); // fusionne les deux tesselles en x_old et x_new en une seule en x_new
-    bool move(int dir); // maj du plateau lors d'un appui sur une flèche
+    Q_INVOKABLE bool move(int dir); // maj du plateau lors d'un appui sur une flèche
 
     bool gauche_ligne(Tesselle* vect_tess, bool* vect_libres); // réalise un coup vers la gauche dans vect_libres (vecteur de 4 tesselles) suivant les règles du 2048
 
@@ -35,6 +42,9 @@ public:
     void undo(); // revenir au plateau précédent
     void redo(); // aller au plateau suivant
     void copie_tab_mem(); // copier tab dans tab_mem [option pédagogique]
+
+signals:
+   // void plateauMoved();
 
 private:
     int score;
@@ -47,6 +57,8 @@ private:
     Tesselle tab_mem [4][4];     // mémorise le plateau du coup d'avant (ou d'après)
     bool cases_libres_mem [4][4];// coordonnées des cases libres
     bool avant_ou_apres;        // indique s'il s'agit du plateau suivant ou précédent
+
+    int numMove;
 };
 
 #endif // PLATEAU_H
