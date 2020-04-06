@@ -1,23 +1,28 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QtQml>
+#include <iostream>
 #include "plateau.h"
-#include "tesselle.h"
+using namespace std;
 
-int main(int argc, char *argv[])
+int main()
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    cout << "Hello World!" << endl;
 
-    QGuiApplication app(argc, argv);
+    Plateau P;
 
-    QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
-    engine.load(url);
+    cout << P << endl;
+    cout << "________" <<endl;
 
-    return app.exec();
+    P.move(1);
+
+    cout << P << endl;
+    cout << "________" <<endl;
+    P.move(3);
+
+    cout << P << endl;
+    cout << "________" <<endl;
+
+
+
+    return 0;
 }
+
+
