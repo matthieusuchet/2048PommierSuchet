@@ -41,11 +41,10 @@ void Plateau::reset_table() // initialisation de tab, cases_libres et plateau_me
             cases_libres[i][j] = true;
         }
     }
-    copie_tab_mem();
+    copie_tab_mem(); avant_ou_apres = false;
     score = 0;
-    remplissage = 0;
-    libres = 16;
-    avant_ou_apres = false;
+    remplissage = 0; libres = 16;
+    add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
 }
 
 int Plateau::get_score()
@@ -138,6 +137,8 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
 
     vect_libres[x_old] = true;
     vect_libres[x_new] = false;
+
+    remplissage --; libres ++;
 }
 
 bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
@@ -211,6 +212,10 @@ bool Plateau::move(int dir)
                 {tab[4-k-1][n] = vect_tess[k]; cases_libres[4-k-1][n] = vect_libres[k];}
         }
     }
+
+    if (a_bouge)
+        add_tesselle_random();
+
     return a_bouge;
 }
 
