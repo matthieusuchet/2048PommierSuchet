@@ -14,9 +14,10 @@ class Plateau : public QObject
 public:
 
     explicit Plateau(QObject *parent = nullptr); // constructeur
- //   Q_PROPERTY(QString pmoveQML READ readMove NOTIFY plateauMoved)
+   // Q_PROPERTY(QList<QString> nombreQML READ readMove NOTIFY plateauMoved)
+  //  Q_PROPERTY(QList<QString> cacheQML READ readMove NOTIFY plateauMoved)
     Q_INVOKABLE void print(int num);
-  //  QString readMove();
+    QString readMove();
 
 
     friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
@@ -44,7 +45,7 @@ public:
     void copie_tab_mem(); // copier tab dans tab_mem [option pédagogique]
 
 signals:
-   // void plateauMoved();
+    void plateauMoved();
 
 private:
     int score;

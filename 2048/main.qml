@@ -151,7 +151,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: true
                 Text {
                     id: nombre3
                     height: 40

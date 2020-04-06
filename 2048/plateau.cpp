@@ -28,6 +28,20 @@ ostream& operator<<(ostream &sortie, Plateau &p) {
     return sortie;
 }
 
+/*
+void Plateau::affiche(){
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                ;
+            else
+                ;
+        }
+        ;
+    };
+    return sortie;
+}
+*/
 
 bool Plateau::est_plein()
 {
