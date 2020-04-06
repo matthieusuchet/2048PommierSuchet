@@ -26,7 +26,7 @@ public:
     void deplacement(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new); // déplacer la tesselle initialement en x_old vers x_new dans le vecteur vect_tess
     void fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new); // fusionne les deux tesselles en x_old et x_new en une seule en x_new
     bool gauche_ligne(Tesselle* vect_tess, bool* vect_libres); // réalise un coup vers la gauche dans vect_libres (vecteur de 4 tesselles) suivant les règles du 2048
-    bool move(int dir); // maj du plateau lors d'un appui sur une flèche
+    void move(int dir); // maj du plateau lors d'un appui sur une flèche
 
     // gestion fin de partie
     bool possible_move(int dir); // est ce qu'un déplacement dans cette direction conduit à une modification du plateau, et donc à une progression dans le jeu ?
