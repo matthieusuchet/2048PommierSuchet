@@ -7,11 +7,13 @@
 using namespace std;
 
 
-Plateau::Plateau()
+Plateau::Plateau(QObject *parent) : QObject(parent)
 {
     init();
     best_score = 0;
     srand (time(NULL));
+    numMove=0;
+    //plateauMoved();
 }
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
@@ -27,6 +29,20 @@ ostream& operator<<(ostream &sortie, Plateau &p) {
     return sortie;
 }
 
+/*
+void Plateau::affiche(){
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                ;
+            else
+                ;
+        }
+        ;
+    };
+    return sortie;
+}
+*/
 
 bool Plateau::est_plein()
 {
@@ -271,7 +287,18 @@ bool Plateau::a_perdu()
     return false;
 }
 
-
+void Plateau::print(int num){
+   // cout << "moved" << endl;
+    numMove = num;
+  //  cout << numMove << endl;
+  //  plateauMoved();
+    cout << *this << endl;
+}
+/*
+QString Plateau::readMove(){
+    return QString::number(numMove);
+}
+*/
 // /////////////////////////////
 // gestion option pédagogique //
 // /////////////////////////////
@@ -330,4 +357,3 @@ void Plateau::redo()
         mise_a_jour_score();
     }
 }
-

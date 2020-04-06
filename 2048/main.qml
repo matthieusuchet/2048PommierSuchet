@@ -14,6 +14,7 @@ Window {
         height: 40
         color: "#89817a"
         text: qsTr("2048")
+        //text: vueObjPlat.pmoveQML
         rotation: 0
         anchors.top: parent.top
         anchors.left: parent.left
@@ -22,6 +23,28 @@ Window {
         font.family: "Arial"
         font.pixelSize: 38
         anchors.topMargin: 20
+        focus: true
+
+        Keys.onPressed: {
+            switch (event.key) {
+                case Qt.Key_Up:
+                    vueObjPlat.move(3);
+                    vueObjPlat.print(3);
+                    break;
+                case Qt.Key_Down:
+                    vueObjPlat.move(4);
+                    vueObjPlat.print(4);
+                    break;
+                case Qt.Key_Left:
+                    vueObjPlat.move(1);
+                    vueObjPlat.print(1);
+                    break;
+                case Qt.Key_Right:
+                    vueObjPlat.move(2);
+                    vueObjPlat.print(2);
+                    break;
+            }
+        }
     }
 
     Rectangle {
@@ -36,23 +59,6 @@ Window {
         anchors.left: parent.left
         anchors.leftMargin: 30
         radius : 2
-
-        Keys.onPressed: {
-            switch (event.key) {
-                case Qt.Key_Up:
-                    actuTab.move(3);
-                    break;
-                case Qt.Key_Down:
-                    actuTab.move(4);
-                    break;
-                case Qt.Key_Left:
-                    actuTab.move(1);
-                    break;
-                case Qt.Key_Right:
-                    actuTab.move(2);
-                    break;
-            }
-        }
 
         Rectangle {
             id: case1
@@ -145,7 +151,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: true
                 Text {
                     id: nombre3
                     height: 40
