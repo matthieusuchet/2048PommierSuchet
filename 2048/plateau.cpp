@@ -29,21 +29,6 @@ ostream& operator<<(ostream &sortie, Plateau &p) {
     return sortie;
 }
 
-/*
-void Plateau::affiche(){
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            if (cases_libres[i][j] == false)
-                ;
-            else
-                ;
-        }
-        ;
-    };
-    return sortie;
-}
-*/
-
 bool Plateau::est_plein()
 {
     return (libres == 0);
@@ -293,12 +278,23 @@ void Plateau::print(int num){
   //  cout << numMove << endl;
   //  plateauMoved();
     cout << *this << endl;
+    plateauMoved();
 }
-/*
-QString Plateau::readMove(){
-    return QString::number(numMove);
+
+QList<QString> Plateau::readMove(){
+    QList<QString> listNombres;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                listNombres.append(QString::number(tab[i][j].GetScore()));
+            else
+                listNombres.append(QString::number(0));
+        }
+    }
+    return listNombres;
 }
-*/
+
+
 // /////////////////////////////
 // gestion option pédagogique //
 // /////////////////////////////

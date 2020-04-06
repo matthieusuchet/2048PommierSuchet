@@ -82,7 +82,7 @@ Window {
                     id: nombre1
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[0]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -119,7 +119,7 @@ Window {
                     id: nombre2
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[1]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -156,7 +156,7 @@ Window {
                     id: nombre3
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[2]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -193,7 +193,7 @@ Window {
                     id: nombre4
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[3]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -230,7 +230,7 @@ Window {
                     id: nombre5
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[4]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -267,7 +267,7 @@ Window {
                     id: nombre6
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[5]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -304,7 +304,7 @@ Window {
                     id: nombre7
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[6]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -341,7 +341,7 @@ Window {
                     id: nombre8
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[7]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -378,7 +378,7 @@ Window {
                     id: nombre9
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[8]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -415,7 +415,7 @@ Window {
                     id: nombre10
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[9]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -452,7 +452,7 @@ Window {
                     id: nombre11
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[10]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -489,7 +489,7 @@ Window {
                     id: nombre12
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[11]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -526,7 +526,7 @@ Window {
                     id: nombre13
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[12]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -563,7 +563,7 @@ Window {
                     id: nombre14
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[13]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -600,7 +600,7 @@ Window {
                     id: nombre15
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[14]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
@@ -637,7 +637,7 @@ Window {
                     id: nombre16
                     height: 40
                     color: "#78726d"
-                    text: qsTr("2")
+                    text: vueObjPlat.nombreQML[15]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     verticalAlignment: Text.AlignVCenter
