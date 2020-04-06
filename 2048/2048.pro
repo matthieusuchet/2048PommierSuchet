@@ -36,3 +36,6 @@ HEADERS += \
     direction.h \
     plateau.h \
     tesselle.h
+
+DISTFILES += \
+    tesselleItem.qml
