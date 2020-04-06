@@ -164,11 +164,15 @@ bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
                         deja_fusionne[j_avant-1] = true;
                         a_bouge = true;
                     }
-                    else // si la case a déjà fusionné, elle ne doit pas fusionner 2 fois
+                    else { // si la case a déjà fusionné, elle ne doit pas fusionner 2 fois
+                        if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
+                            {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
+                    }
+                }
+                else {// si les nombres ne sont pas identiques, il n'y a pas fusion
+                    if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
                         {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
                 }
-                else // si les nombres ne sont pas identiques, il n'y a pas fusion
-                    {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
             }
 
             else // s'il n'y a pas de tesselle à gauche
