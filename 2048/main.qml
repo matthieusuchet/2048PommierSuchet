@@ -77,7 +77,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[0]
                 Text {
                     id: nombre1
                     height: 40
@@ -114,7 +114,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[1]
                 Text {
                     id: nombre2
                     height: 40
@@ -151,7 +151,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-                visible: true
+                visible: vueObjPlat.visibleQML[2]
                 Text {
                     id: nombre3
                     height: 40
@@ -188,7 +188,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[3]
                 Text {
                     id: nombre4
                     height: 40
@@ -225,7 +225,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[4]
                 Text {
                     id: nombre5
                     height: 40
@@ -262,7 +262,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[5]
                 Text {
                     id: nombre6
                     height: 40
@@ -299,7 +299,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[6]
                 Text {
                     id: nombre7
                     height: 40
@@ -336,7 +336,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[7]
                 Text {
                     id: nombre8
                     height: 40
@@ -373,7 +373,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[8]
                 Text {
                     id: nombre9
                     height: 40
@@ -410,7 +410,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[9]
                 Text {
                     id: nombre10
                     height: 40
@@ -447,7 +447,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[10]
                 Text {
                     id: nombre11
                     height: 40
@@ -484,7 +484,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[11]
                 Text {
                     id: nombre12
                     height: 40
@@ -521,7 +521,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[12]
                 Text {
                     id: nombre13
                     height: 40
@@ -558,7 +558,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[13]
                 Text {
                     id: nombre14
                     height: 40
@@ -595,7 +595,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[14]
                 Text {
                     id: nombre15
                     height: 40
@@ -632,7 +632,7 @@ Window {
                 color: "#edebe7"
                 radius: 2
                 anchors.fill: parent
-
+                visible: vueObjPlat.visibleQML[15]
                 Text {
                     id: nombre16
                     height: 40

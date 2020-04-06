@@ -15,12 +15,12 @@ public:
 
     explicit Plateau(QObject *parent = nullptr); // constructeur
     Q_PROPERTY(QList<QString> nombreQML READ readMove NOTIFY plateauMoved)
-  //  Q_PROPERTY(QList<QString> cacheQML READ readMove NOTIFY plateauMoved)
+    Q_PROPERTY(QList<bool> visibleQML READ readVisible NOTIFY plateauMoved)
 
     Q_INVOKABLE void print(int num);
 
     QList<QString> readMove();
-
+    QList<bool> readVisible();
 
     friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
 

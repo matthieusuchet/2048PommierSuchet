@@ -294,6 +294,18 @@ QList<QString> Plateau::readMove(){
     return listNombres;
 }
 
+QList<bool> Plateau::readVisible(){
+    QList<bool> visibles;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                visibles.append(true);
+            else
+                visibles.append(false);
+        }
+    }
+    return visibles;
+}
 
 // /////////////////////////////
 // gestion option pédagogique //
