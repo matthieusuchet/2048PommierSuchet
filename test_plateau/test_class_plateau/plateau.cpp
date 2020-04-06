@@ -9,7 +9,8 @@ using namespace std;
 
 Plateau::Plateau()
 {
-    reset_table();
+    init();
+    best_score = 0;
     srand (time(NULL));
 }
 
@@ -32,8 +33,11 @@ bool Plateau::est_plein()
     return (libres == 0);
 }
 
-void Plateau::reset_table() // initialisation de tab, cases_libres et plateau_mem
+void Plateau::init() // initialisation des variables pour un début de partie
 {
+    if (score > best_score) // mise à jour du meilleur score
+        best_score = score;
+
     Tesselle T_init(0,0,0,0,0);
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
@@ -41,9 +45,8 @@ void Plateau::reset_table() // initialisation de tab, cases_libres et plateau_me
             cases_libres[i][j] = true;
         }
     }
-    copie_tab_mem(); avant_ou_apres = false;
-    score = 0;
-    remplissage = 0; libres = 16;
+    copie_tab_mem(); a_deja_undo = false;
+    score = 0; remplissage = 0; libres = 16;
     add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
 }
 
@@ -51,6 +54,11 @@ int Plateau::get_score()
 {
     return score;
 }
+
+
+// /////////////////////////////
+// ajout des tesselles /////////
+// /////////////////////////////
 
 void Plateau::add_tesselle(Tesselle T) // ajouter la tesselle T au plateau
 {
@@ -92,26 +100,10 @@ void Plateau::add_tesselle_random()
     add_tesselle(T);
 }
 
-void Plateau::init()
-{
-    reset_table();
-    int une_ou_deux_tesselles = (rand() % 2); // nombre aléatoirement 0 ou 1
-    add_tesselle_random();
-    if (une_ou_deux_tesselles) {
-        add_tesselle_random();
-    }
-}
 
-void Plateau::copie_tab_mem()
-{
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            tab_mem[i][j] = tab[i][j];
-            cases_libres_mem[i][j] = cases_libres[i][j];
-        }
-    }
-}
-
+// /////////////////////////////
+// déplacements des tesselles //
+// /////////////////////////////
 
 void Plateau::deplacement(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new)
 {
@@ -220,6 +212,115 @@ bool Plateau::move(int dir)
 }
 
 
+// /////////////////////////////
+// gestion fin de partie ///////
+// /////////////////////////////
+
+bool Plateau::possible_move(int dir) // est ce qu'un déplacement dans cette direction conduit à une modification du plateau
+{
+    for (int n=0; n<4; n++) { // parcours des lignes ou colonnes selon la direction
+        Tesselle vect_tess[4];
+        bool vect_libres[4];
+        for (int k=0; k<4; k++) { // parcours des cases de chaque ligne ou colonne
+            if (dir == 1) // gauche
+                {vect_tess[k] = tab[n][k]; vect_libres[k] = cases_libres[n][k];}
+            if (dir == 2) //droite
+                {vect_tess[k] = tab[n][4-k-1]; vect_libres[k] = cases_libres[n][4-k-1];}
+            if (dir == 3) // haut
+                {vect_tess[k] = tab[k][n]; vect_libres[k] = cases_libres[k][n];}
+            if (dir == 4) // bas
+                {vect_tess[k] = tab[4-k-1][n]; vect_libres[k] = cases_libres[4-k-1][n];}
+        }
+
+        for (int j=1; j<4; j++) {
+            if (vect_libres[j] == false) {
+
+                int j_avant = j; // indice de la derniere case vide à gauche
+                while ((j_avant>=1) && (vect_libres[j_avant-1] == true))
+                    j_avant --;
+
+                if (j_avant>0) { // s'il y a une autre tesselle à gauche
+                    if (vect_tess[j].GetScore() == vect_tess[j_avant-1].GetScore()) // s'il peut y avoir fusion
+                        return true;
+                    if (j_avant != j) // s'il y a déplacement
+                        return true;
+                }
+
+                if (j_avant==0) // s'il n'y a pas de tesselle à gauche et ya déplacement
+                    return true; // déplacement jusqu'à l'indice 0
+            }
+        }
+    }
+    return false;
+}
+
+bool Plateau::a_perdu()
+{
+    if (est_plein()) {
+        bool peut_bouger = false;
+        peut_bouger = possible_move(1) || possible_move(2) || possible_move(3) || possible_move(4);
+        return (! peut_bouger);
+    }
+    return false;
+}
 
 
+// /////////////////////////////
+// gestion option pédagogique //
+// /////////////////////////////
+
+void Plateau::copie_tab_mem()
+{
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            tab_mem[i][j] = tab[i][j];
+            cases_libres_mem[i][j] = cases_libres[i][j];
+        }
+    }
+}
+
+void Plateau::echanger_mem()
+{
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            // échanger les valeurs de tab et de tab_mem
+            Tesselle tab_aux = tab[i][j];
+            tab[i][j] = tab_mem[i][j];
+            tab_mem[i][j] = tab_aux;
+            // idem pour cases_libres et cases_libres_mem
+            bool case_aux = cases_libres[i][j];
+            cases_libres[i][j] = cases_libres_mem[i][j];
+            cases_libres_mem[i][j] = case_aux;
+        }
+    }
+}
+
+void Plateau::mise_a_jour_score()
+{
+    score = 0;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (! cases_libres[i][j])
+                score += tab[i][j].GetScore();
+        }
+    }
+}
+
+void Plateau::undo()
+{
+    if (! a_deja_undo) { // si le joueur n'est pas déjà revenu en arrière
+        echanger_mem();
+        a_deja_undo = true;
+        mise_a_jour_score();
+    }
+}
+
+void Plateau::redo()
+{
+    if (a_deja_undo) { // si c'est bien après un retour en arrière
+        echanger_mem();
+        a_deja_undo = false;
+        mise_a_jour_score();
+    }
+}
 
