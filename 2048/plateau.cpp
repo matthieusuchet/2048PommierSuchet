@@ -20,6 +20,95 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
     //cout << couleurs[0] << couleurs[1] << endl;
 }
 
+void Plateau::init() // initialisation des variables pour un début de partie
+{
+    if (score > best_score) // mise à jour du meilleur score
+        best_score = score;
+
+    Tesselle T_init(0,0,0,0);
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            tab[i][j] = T_init;
+            cases_libres[i][j] = true;
+        }
+    }
+    copie_tab_mem(); a_deja_undo = false;
+    score = 0; libres = 16;
+    add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
+}
+
+
+// /////////////////////////////
+// affichage QML ///////////////
+// /////////////////////////////
+
+QList<QString> Plateau::readMove(){
+    QList<QString> listNombres;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                listNombres.append(QString::number(tab[i][j].GetScore()));
+            else
+                listNombres.append(QString::number(0));
+        }
+    }
+    return listNombres;
+}
+
+QList<bool> Plateau::readVisible(){
+    QList<bool> visibles;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                visibles.append(true);
+            else
+                visibles.append(false);
+        }
+    }
+    return visibles;
+}
+
+QList<QString> Plateau::readCouleur()
+{
+    QList<QString> listCouleurs;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            listCouleurs.append(tab[i][j].GetCouleur());
+        }
+    }
+    return listCouleurs;
+}
+
+QList<QString> Plateau::readCoulText()
+{
+    QList<QString> listCouleurs;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            listCouleurs.append(tab[i][j].GetCoulText());
+        }
+    }
+    return listCouleurs;
+}
+
+QList<QString> Plateau::readScores()
+{
+    QList<QString> scores;
+    scores.append(QString::number(score));      // score courant
+    scores.append(QString::number(best_score)); // meilleur score
+    return scores;
+}
+
+
+QString Plateau::readTest()
+{
+    if (test == 1)
+        return "#89817a";
+    else
+        return "#aaaaaa";
+}
+
+
+
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
@@ -31,33 +120,6 @@ ostream& operator<<(ostream &sortie, Plateau &p) {
         sortie << endl;
     };
     return sortie;
-}
-
-bool Plateau::est_plein()
-{
-    return (libres == 0);
-}
-
-void Plateau::init() // initialisation des variables pour un début de partie
-{
-    if (score > best_score) // mise à jour du meilleur score
-        best_score = score;
-
-    Tesselle T_init(0,0,0,0,0);
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            tab[i][j] = T_init;
-            cases_libres[i][j] = true;
-        }
-    }
-    copie_tab_mem(); a_deja_undo = false;
-    score = 0; remplissage = 0; libres = 16;
-    add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
-}
-
-int Plateau::get_score()
-{
-    return score;
 }
 
 
@@ -73,8 +135,7 @@ void Plateau::add_tesselle(Tesselle T) // ajouter la tesselle T au plateau
     int i = T.GetI(); int j = T.GetJ(); // coordonnées de la tesselle
     tab[i][j] = T;
     cases_libres[i][j] = false;
-    remplissage ++; libres --;
-    score += T.GetScore();
+    libres --;
 }
 
 void Plateau::add_tesselle_random()
@@ -96,15 +157,19 @@ void Plateau::add_tesselle_random()
         }
     }
 
-    int ident = 0; int nombre = 2;
+    int nombre = 2; int indice_couleur = 0;
     int proba = rand() % 5; // 1 chance sur 5 d'avoir un 4, sinon un 2
-    if (proba == 0) {nombre = 4;}
-    int couleur = 0;
-    Tesselle T( ident, nombre, couleur, iplat, jplat);
+    if (proba == 0) {nombre = 4; indice_couleur = 1;}
+    Tesselle T( nombre, indice_couleur, iplat, jplat);
 
     add_tesselle(T);
 
     if (a_perdu()) {
+        test = 2;
+        peutetrefin();
+
+        init();
+        plateauMoved();
         //
         //
         // faire quelque chose si c'est perdu -> fin de partie //
@@ -137,14 +202,14 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
     //
     // ajouter EXCEPTION si ( pas fusionnables ) //
     //
-    Tesselle T_old = vect_tess[x_old];
     Tesselle* T_new = &vect_tess[x_new];
-    T_new->Fusion(T_old);
+    T_new->Fusion();
 
     vect_libres[x_old] = true;
     vect_libres[x_new] = false;
 
-    remplissage --; libres ++;
+    score += T_new->GetScore();
+    libres ++;
 }
 
 bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
@@ -168,11 +233,15 @@ bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
                         deja_fusionne[j_avant-1] = true;
                         a_bouge = true;
                     }
-                    else // si la case a déjà fusionné, elle ne doit pas fusionner 2 fois
+                    else { // si la case a déjà fusionné, elle ne doit pas fusionner 2 fois
+                        if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
+                            {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
+                    }
+                }
+                else {// si les nombres ne sont pas identiques, il n'y a pas fusion
+                    if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
                         {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
                 }
-                else // si les nombres ne sont pas identiques, il n'y a pas fusion
-                    {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
             }
 
             else // s'il n'y a pas de tesselle à gauche
@@ -221,6 +290,8 @@ void Plateau::move(int dir)
 
     if (a_bouge)
         add_tesselle_random();
+
+    plateauMoved();
 }
 
 
@@ -268,15 +339,13 @@ bool Plateau::possible_move(int dir) // est ce qu'un déplacement dans cette dir
 
 bool Plateau::a_perdu()
 {
-    if (est_plein()) {
+    if (libres == 0) {
         bool peut_bouger = false;
         peut_bouger = possible_move(1) || possible_move(2) || possible_move(3) || possible_move(4);
         return (! peut_bouger);
     }
     return false;
 }
-
-
 
 // /////////////////////////////
 // gestion option pédagogique //
@@ -397,5 +466,3 @@ QList<QString> Plateau::readCouleurs(){
     }
     return couleurs_tesselles;
 }
-
-

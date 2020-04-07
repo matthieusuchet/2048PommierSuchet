@@ -12,7 +12,7 @@ Window {
     Text {
         id: titre
         height: 40
-        color: "#89817a"
+        color: vueObjPlat.testQML
         text: qsTr("2048")
         //text: vueObjPlat.pmoveQML
         rotation: 0
@@ -27,22 +27,18 @@ Window {
 
         Keys.onPressed: {
             switch (event.key) {
-                case Qt.Key_Up:
-                    vueObjPlat.move(3);
-                    vueObjPlat.print(3);
-                    break;
-                case Qt.Key_Down:
-                    vueObjPlat.move(4);
-                    vueObjPlat.print(4);
-                    break;
-                case Qt.Key_Left:
-                    vueObjPlat.move(1);
-                    vueObjPlat.print(1);
-                    break;
-                case Qt.Key_Right:
-                    vueObjPlat.move(2);
-                    vueObjPlat.print(2);
-                    break;
+            case Qt.Key_Up:
+                vueObjPlat.move(3);
+                break;
+            case Qt.Key_Down:
+                vueObjPlat.move(4);
+                break;
+            case Qt.Key_Left:
+                vueObjPlat.move(1);
+                break;
+            case Qt.Key_Right:
+                vueObjPlat.move(2);
+                break;
             }
         }
     }
@@ -74,14 +70,14 @@ Window {
 
             Rectangle {
                 id: tesselle1
-                color: vueObjPlat.couleursQML[0]
+                color: vueObjPlat.couleurQML[0]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[0]
                 Text {
                     id: nombre1
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[0]
                     text: vueObjPlat.nombreQML[0]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -112,14 +108,14 @@ Window {
 
             Rectangle {
                 id: tesselle2
-                color: vueObjPlat.couleursQML[1]
+                color: vueObjPlat.couleurQML[1]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[1]
                 Text {
                     id: nombre2
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[1]
                     text: vueObjPlat.nombreQML[1]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -149,14 +145,14 @@ Window {
 
             Rectangle {
                 id: tesselle3
-                color: vueObjPlat.couleursQML[2]
+                color: vueObjPlat.couleurQML[2]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[2]
                 Text {
                     id: nombre3
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[2]
                     text: vueObjPlat.nombreQML[2]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -186,14 +182,14 @@ Window {
 
             Rectangle {
                 id: tesselle4
-                color: vueObjPlat.couleursQML[3]
+                color: vueObjPlat.couleurQML[3]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[3]
                 Text {
                     id: nombre4
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[3]
                     text: vueObjPlat.nombreQML[3]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -223,14 +219,14 @@ Window {
 
             Rectangle {
                 id: tesselle5
-                color: vueObjPlat.couleursQML[4]
+                color: vueObjPlat.couleurQML[4]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[4]
                 Text {
                     id: nombre5
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[4]
                     text: vueObjPlat.nombreQML[4]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -260,14 +256,14 @@ Window {
 
             Rectangle {
                 id: tesselle6
-                color: vueObjPlat.couleursQML[5]
+                color: vueObjPlat.couleurQML[5]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[5]
                 Text {
                     id: nombre6
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[5]
                     text: vueObjPlat.nombreQML[5]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -297,14 +293,14 @@ Window {
 
             Rectangle {
                 id: tesselle7
-                color: vueObjPlat.couleursQML[6]
+                color: vueObjPlat.couleurQML[6]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[6]
                 Text {
                     id: nombre7
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[6]
                     text: vueObjPlat.nombreQML[6]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -334,14 +330,14 @@ Window {
 
             Rectangle {
                 id: tesselle8
-                color: vueObjPlat.couleursQML[7]
+                color: vueObjPlat.couleurQML[7]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[7]
                 Text {
                     id: nombre8
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[7]
                     text: vueObjPlat.nombreQML[7]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -371,14 +367,14 @@ Window {
 
             Rectangle {
                 id: tesselle9
-                color: vueObjPlat.couleursQML[8]
+                color: vueObjPlat.couleurQML[8]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[8]
                 Text {
                     id: nombre9
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[8]
                     text: vueObjPlat.nombreQML[8]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -408,14 +404,14 @@ Window {
 
             Rectangle {
                 id: tesselle10
-                color: vueObjPlat.couleursQML[9]
+                color: vueObjPlat.couleurQML[9]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[9]
                 Text {
                     id: nombre10
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[9]
                     text: vueObjPlat.nombreQML[9]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -445,14 +441,14 @@ Window {
 
             Rectangle {
                 id: tesselle11
-                color: vueObjPlat.couleursQML[10]
+                color: vueObjPlat.couleurQML[10]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[10]
                 Text {
                     id: nombre11
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[10]
                     text: vueObjPlat.nombreQML[10]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -482,14 +478,14 @@ Window {
 
             Rectangle {
                 id: tesselle12
-                color: vueObjPlat.couleursQML[11]
+                color: vueObjPlat.couleurQML[11]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[11]
                 Text {
                     id: nombre12
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[11]
                     text: vueObjPlat.nombreQML[11]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -519,14 +515,14 @@ Window {
 
             Rectangle {
                 id: tesselle13
-                color: vueObjPlat.couleursQML[12]
+                color: vueObjPlat.couleurQML[12]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[12]
                 Text {
                     id: nombre13
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[12]
                     text: vueObjPlat.nombreQML[12]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -556,14 +552,14 @@ Window {
 
             Rectangle {
                 id: tesselle14
-                color: vueObjPlat.couleursQML[13]
+                color: vueObjPlat.couleurQML[13]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[13]
                 Text {
                     id: nombre14
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[13]
                     text: vueObjPlat.nombreQML[13]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -593,14 +589,14 @@ Window {
 
             Rectangle {
                 id: tesselle15
-                color: vueObjPlat.couleursQML[14]
+                color: vueObjPlat.couleurQML[14]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[14]
                 Text {
                     id: nombre15
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[14]
                     text: vueObjPlat.nombreQML[14]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -630,14 +626,14 @@ Window {
 
             Rectangle {
                 id: tesselle16
-                color: vueObjPlat.couleursQML[15]
+                color: vueObjPlat.couleurQML[15]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[15]
                 Text {
                     id: nombre16
                     height: 40
-                    color: "#78726d"
+                    color: vueObjPlat.couleurtextQML[15]
                     text: vueObjPlat.nombreQML[15]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -666,7 +662,7 @@ Window {
         radius : 2
 
         Text {
-            id: best
+            id: best_label
             x: 18
             color: "#e8ded6"
             text: qsTr("BEST")
@@ -676,6 +672,21 @@ Window {
             anchors.horizontalCenterOffset: 0
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 12
+        }
+
+        Text {
+            id: score_best
+            x: 18
+            y: 19
+            text: vueObjPlat.scoresQML[1]
+            font.pixelSize: 14
+            color: "#f9f6f2"
+            anchors.horizontalCenter: parent.horizontalCenter
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            rotation: 0
+            font.bold: true
+            font.family: "Arial"
         }
     }
 
@@ -693,7 +704,7 @@ Window {
         radius : 2
 
         Text {
-            id: score
+            id: score_label
             x: -44
             y: 7
             color: "#e8ded6"
@@ -704,6 +715,21 @@ Window {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.topMargin: 2
             anchors.horizontalCenterOffset: 0
+        }
+
+        Text {
+            id: score_current
+            x: 18
+            y: 20
+            text: vueObjPlat.scoresQML[0]
+            font.pixelSize: 14
+            color: "#f9f6f2"
+            anchors.horizontalCenter: parent.horizontalCenter
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            rotation: 0
+            font.bold: true
+            font.family: "Arial"
         }
     }
 
