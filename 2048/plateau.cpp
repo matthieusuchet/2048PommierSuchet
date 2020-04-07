@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
+#include <QColor>
 using namespace std;
 
 
@@ -14,6 +16,8 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
     srand (time(NULL));
     numMove=0;
     //plateauMoved();
+    //couleurs = {"#edebe7", "#d4cdb4"};
+    //cout << couleurs[0] << couleurs[1] << endl;
 }
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
@@ -272,40 +276,7 @@ bool Plateau::a_perdu()
     return false;
 }
 
-void Plateau::print(int num){
-   // cout << "moved" << endl;
-    numMove = num;
-  //  cout << numMove << endl;
-  //  plateauMoved();
-    cout << *this << endl;
-    plateauMoved();
-}
 
-QList<QString> Plateau::readMove(){
-    QList<QString> listNombres;
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            if (cases_libres[i][j] == false)
-                listNombres.append(QString::number(tab[i][j].GetScore()));
-            else
-                listNombres.append(QString::number(0));
-        }
-    }
-    return listNombres;
-}
-
-QList<bool> Plateau::readVisible(){
-    QList<bool> visibles;
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            if (cases_libres[i][j] == false)
-                visibles.append(true);
-            else
-                visibles.append(false);
-        }
-    }
-    return visibles;
-}
 
 // /////////////////////////////
 // gestion option pédagogique //
@@ -365,3 +336,66 @@ void Plateau::redo()
         mise_a_jour_score();
     }
 }
+
+///////////////////////////
+/// interaction avec QML //
+///////////////////////////
+
+void Plateau::print(int num){
+   // cout << "moved" << endl;
+    numMove = num;
+  //  cout << numMove << endl;
+  //  plateauMoved();
+    cout << *this << endl;
+    plateauMoved();
+}
+
+QList<QString> Plateau::readMove(){
+    QList<QString> listNombres;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                listNombres.append(QString::number(tab[i][j].GetScore()));
+            else
+                listNombres.append(QString::number(0));
+        }
+    }
+    return listNombres;
+}
+
+QList<bool> Plateau::readVisible(){
+    QList<bool> visibles;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false)
+                visibles.append(true);
+            else
+                visibles.append(false);
+        }
+    }
+    return visibles;
+}
+
+QList<QString> Plateau::readCouleurs(){
+    QList<QString> couleurs_tesselles;
+   // QColor coulQML;
+    int coul;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (cases_libres[i][j] == false){
+                coul = log2(tab[i][j].GetScore());
+                //coulQML.setNamedColor(couleurs[coul]);
+                //QColor(couleurs[coul])
+                couleurs_tesselles.append(couleurs[coul]);
+            }
+            else{
+                //coulQML.setNamedColor(couleurs[0]);
+               // QColor(couleurs[0])
+                couleurs_tesselles.append(couleurs[0]);
+            }
+        }
+    }
+    return couleurs_tesselles;
+}
+
+

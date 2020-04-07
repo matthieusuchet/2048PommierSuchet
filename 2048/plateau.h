@@ -16,11 +16,13 @@ public:
     explicit Plateau(QObject *parent = nullptr); // constructeur
     Q_PROPERTY(QList<QString> nombreQML READ readMove NOTIFY plateauMoved)
     Q_PROPERTY(QList<bool> visibleQML READ readVisible NOTIFY plateauMoved)
+    Q_PROPERTY(QList<QString> couleursQML READ readCouleurs NOTIFY plateauMoved)
 
     Q_INVOKABLE void print(int num);
 
     QList<QString> readMove();
     QList<bool> readVisible();
+    QList<QString> readCouleurs();
 
     friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
 
@@ -66,7 +68,7 @@ private:
     bool cases_libres_mem [4][4];// coordonnées des cases libres
     bool a_deja_undo;        // indique s'il s'agit du plateau suivant ou précédent
     int numMove;
-
+    QString couleurs[11]={"#edebe7", "#d4cdb4", "#d4a56b", "#ed8251", "#dd6151", "#e62c19", "#d4bf6d", "#ebcb58", "#d6b53a", "#d2a913", "#f7cb2e"};
 };
 
 #endif // PLATEAU_H

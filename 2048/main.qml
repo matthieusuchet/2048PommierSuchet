@@ -74,7 +74,7 @@ Window {
 
             Rectangle {
                 id: tesselle1
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[0]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[0]
@@ -89,6 +89,7 @@ Window {
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
+                    fontSizeMode: Text.HorizontalFit
                     font.bold: true
                     font.family: "Arial"
                 }
@@ -111,7 +112,7 @@ Window {
 
             Rectangle {
                 id: tesselle2
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[1]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[1]
@@ -148,7 +149,7 @@ Window {
 
             Rectangle {
                 id: tesselle3
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[2]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[2]
@@ -185,7 +186,7 @@ Window {
 
             Rectangle {
                 id: tesselle4
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[3]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[3]
@@ -222,7 +223,7 @@ Window {
 
             Rectangle {
                 id: tesselle5
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[4]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[4]
@@ -259,7 +260,7 @@ Window {
 
             Rectangle {
                 id: tesselle6
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[5]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[5]
@@ -296,7 +297,7 @@ Window {
 
             Rectangle {
                 id: tesselle7
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[6]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[6]
@@ -333,7 +334,7 @@ Window {
 
             Rectangle {
                 id: tesselle8
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[7]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[7]
@@ -370,7 +371,7 @@ Window {
 
             Rectangle {
                 id: tesselle9
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[8]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[8]
@@ -407,7 +408,7 @@ Window {
 
             Rectangle {
                 id: tesselle10
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[9]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[9]
@@ -444,7 +445,7 @@ Window {
 
             Rectangle {
                 id: tesselle11
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[10]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[10]
@@ -481,7 +482,7 @@ Window {
 
             Rectangle {
                 id: tesselle12
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[11]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[11]
@@ -518,7 +519,7 @@ Window {
 
             Rectangle {
                 id: tesselle13
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[12]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[12]
@@ -555,7 +556,7 @@ Window {
 
             Rectangle {
                 id: tesselle14
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[13]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[13]
@@ -592,7 +593,7 @@ Window {
 
             Rectangle {
                 id: tesselle15
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[14]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[14]
@@ -629,7 +630,7 @@ Window {
 
             Rectangle {
                 id: tesselle16
-                color: "#edebe7"
+                color: vueObjPlat.couleursQML[15]
                 radius: 2
                 anchors.fill: parent
                 visible: vueObjPlat.visibleQML[15]
