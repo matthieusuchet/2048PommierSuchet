@@ -311,6 +311,28 @@ QList<bool> Plateau::readVisible(){
     return visibles;
 }
 
+QList<QString> Plateau::readCouleur()
+{
+    QList<QString> listCouleurs;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            listCouleurs.append(tab[i][j].GetCouleur());
+        }
+    }
+    return listCouleurs;
+}
+
+QList<QString> Plateau::readCoulText()
+{
+    QList<QString> listCouleurs;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            listCouleurs.append(tab[i][j].GetCoulText());
+        }
+    }
+    return listCouleurs;
+}
+
 // /////////////////////////////
 // gestion option pédagogique //
 // /////////////////////////////

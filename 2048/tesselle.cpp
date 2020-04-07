@@ -4,7 +4,8 @@ Tesselle::Tesselle(int ident, int nombre, int couleur, int iplat, int jplat)
 {
     id = ident;
     nb = nombre;
-    coul = couleur;
+    indice_coul = 0;
+    coul_texte = "#766e66"; // nombre écrit en gris
     i = iplat;
     j = jplat;
 }
@@ -29,14 +30,27 @@ void Tesselle::SetPosition(int I, int J)
     i = I; j = J;
 }
 
-void Tesselle::IncrNb()
+QString Tesselle::GetCouleur()
 {
+    return liste_coul[indice_coul];
+}
 
+QString Tesselle::GetCoulText()
+{
+    return coul_texte;
 }
 
 void Tesselle::IncrCoul()
 {
+    indice_coul++;
+    if (nb >= 8) {
+        coul_texte = "#f9f6f2"; // nombre écrit en blanc
+    }
+}
 
+void Tesselle::IncrNb()
+{
+    nb = 2*nb;
 }
 
 int Tesselle::GetScore()
@@ -56,6 +70,7 @@ int Tesselle::GetJ()
 
 void Tesselle::Fusion(Tesselle &t)
 {
-    nb = 2*nb;
+    IncrNb();
+    IncrCoul();
 }
 

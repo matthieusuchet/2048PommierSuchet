@@ -1,6 +1,7 @@
 #ifndef TESSELLE_H
 #define TESSELLE_H
 #include <iostream>
+#include <QObject>
 using namespace std;
 
 class Tesselle
@@ -13,15 +14,20 @@ public:
     friend ostream& operator<<(ostream &sortie, Tesselle &d); // opérateur <<
 
     void SetPosition(int i, int j);
+    QString GetCouleur();
+    QString GetCoulText();
     void IncrNb();
     void IncrCoul();
     int GetScore();
     int GetI();
     int GetJ();
     void Fusion(Tesselle &t);
+
 private:
     int nb;
-    int coul;
+    int indice_coul;
+    QString liste_coul [12] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#","#","#","#","#","#","#" };
+    QString coul_texte;
     int i;
     int j;
     int id;
