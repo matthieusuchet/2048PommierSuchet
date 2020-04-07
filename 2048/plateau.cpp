@@ -409,7 +409,7 @@ void Plateau::redo()
 ///////////////////////////
 /// interaction avec QML //
 ///////////////////////////
-
+/*
 void Plateau::print(int num){
    // cout << "moved" << endl;
     numMove = num;
@@ -447,22 +447,18 @@ QList<bool> Plateau::readVisible(){
 
 QList<QString> Plateau::readCouleurs(){
     QList<QString> couleurs_tesselles;
-   // QColor coulQML;
     int coul;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             if (cases_libres[i][j] == false){
-                coul = log2(tab[i][j].GetScore());
-                //coulQML.setNamedColor(couleurs[coul]);
-                //QColor(couleurs[coul])
+                coul = log2(tab[i][j].GetScore())-1;
                 couleurs_tesselles.append(couleurs[coul]);
             }
             else{
-                //coulQML.setNamedColor(couleurs[0]);
-               // QColor(couleurs[0])
                 couleurs_tesselles.append(couleurs[0]);
             }
         }
     }
     return couleurs_tesselles;
 }
+*/

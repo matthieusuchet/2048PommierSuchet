@@ -76,11 +76,9 @@ Window {
                 visible: vueObjPlat.visibleQML[0]
                 Text {
                     id: nombre1
-                    height: 40
                     color: vueObjPlat.couleurtextQML[0]
                     text: vueObjPlat.nombreQML[0]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
@@ -114,15 +112,14 @@ Window {
                 visible: vueObjPlat.visibleQML[1]
                 Text {
                     id: nombre2
-                    height: 40
                     color: vueObjPlat.couleurtextQML[1]
                     text: vueObjPlat.nombreQML[1]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
+                    fontSizeMode: Text.HorizontalFit
                     font.bold: true
                     font.family: "Arial"
                 }
@@ -151,17 +148,16 @@ Window {
                 visible: vueObjPlat.visibleQML[2]
                 Text {
                     id: nombre3
-                    height: 40
                     color: vueObjPlat.couleurtextQML[2]
                     text: vueObjPlat.nombreQML[2]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -188,17 +184,16 @@ Window {
                 visible: vueObjPlat.visibleQML[3]
                 Text {
                     id: nombre4
-                    height: 40
                     color: vueObjPlat.couleurtextQML[3]
                     text: vueObjPlat.nombreQML[3]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -225,17 +220,16 @@ Window {
                 visible: vueObjPlat.visibleQML[4]
                 Text {
                     id: nombre5
-                    height: 40
                     color: vueObjPlat.couleurtextQML[4]
                     text: vueObjPlat.nombreQML[4]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -262,17 +256,16 @@ Window {
                 visible: vueObjPlat.visibleQML[5]
                 Text {
                     id: nombre6
-                    height: 40
                     color: vueObjPlat.couleurtextQML[5]
                     text: vueObjPlat.nombreQML[5]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -299,17 +292,16 @@ Window {
                 visible: vueObjPlat.visibleQML[6]
                 Text {
                     id: nombre7
-                    height: 40
                     color: vueObjPlat.couleurtextQML[6]
                     text: vueObjPlat.nombreQML[6]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -336,17 +328,16 @@ Window {
                 visible: vueObjPlat.visibleQML[7]
                 Text {
                     id: nombre8
-                    height: 40
                     color: vueObjPlat.couleurtextQML[7]
                     text: vueObjPlat.nombreQML[7]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -373,17 +364,16 @@ Window {
                 visible: vueObjPlat.visibleQML[8]
                 Text {
                     id: nombre9
-                    height: 40
                     color: vueObjPlat.couleurtextQML[8]
                     text: vueObjPlat.nombreQML[8]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -410,17 +400,16 @@ Window {
                 visible: vueObjPlat.visibleQML[9]
                 Text {
                     id: nombre10
-                    height: 40
                     color: vueObjPlat.couleurtextQML[9]
                     text: vueObjPlat.nombreQML[9]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -447,17 +436,16 @@ Window {
                 visible: vueObjPlat.visibleQML[10]
                 Text {
                     id: nombre11
-                    height: 40
                     color: vueObjPlat.couleurtextQML[10]
                     text: vueObjPlat.nombreQML[10]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -484,17 +472,16 @@ Window {
                 visible: vueObjPlat.visibleQML[11]
                 Text {
                     id: nombre12
-                    height: 40
                     color: vueObjPlat.couleurtextQML[11]
                     text: vueObjPlat.nombreQML[11]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -521,17 +508,16 @@ Window {
                 visible: vueObjPlat.visibleQML[12]
                 Text {
                     id: nombre13
-                    height: 40
                     color: vueObjPlat.couleurtextQML[12]
                     text: vueObjPlat.nombreQML[12]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -558,17 +544,16 @@ Window {
                 visible: vueObjPlat.visibleQML[13]
                 Text {
                     id: nombre14
-                    height: 40
                     color: vueObjPlat.couleurtextQML[13]
                     text: vueObjPlat.nombreQML[13]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -595,17 +580,16 @@ Window {
                 visible: vueObjPlat.visibleQML[14]
                 Text {
                     id: nombre15
-                    height: 40
                     color: vueObjPlat.couleurtextQML[14]
                     text: vueObjPlat.nombreQML[14]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
@@ -632,17 +616,16 @@ Window {
                 visible: vueObjPlat.visibleQML[15]
                 Text {
                     id: nombre16
-                    height: 40
                     color: vueObjPlat.couleurtextQML[15]
                     text: vueObjPlat.nombreQML[15]
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     rotation: 0
                     font.pixelSize: 38
                     font.bold: true
                     font.family: "Arial"
+                    fontSizeMode: Text.HorizontalFit
                 }
             }
         }
