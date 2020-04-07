@@ -12,7 +12,7 @@ Window {
     Text {
         id: titre
         height: 40
-        color: "#89817a"
+        color: vueObjPlat.testQML
         text: qsTr("2048")
         //text: vueObjPlat.pmoveQML
         rotation: 0
@@ -27,22 +27,18 @@ Window {
 
         Keys.onPressed: {
             switch (event.key) {
-                case Qt.Key_Up:
-                    vueObjPlat.move(3);
-                    vueObjPlat.print(3);
-                    break;
-                case Qt.Key_Down:
-                    vueObjPlat.move(4);
-                    vueObjPlat.print(4);
-                    break;
-                case Qt.Key_Left:
-                    vueObjPlat.move(1);
-                    vueObjPlat.print(1);
-                    break;
-                case Qt.Key_Right:
-                    vueObjPlat.move(2);
-                    vueObjPlat.print(2);
-                    break;
+            case Qt.Key_Up:
+                vueObjPlat.move(3);
+                break;
+            case Qt.Key_Down:
+                vueObjPlat.move(4);
+                break;
+            case Qt.Key_Left:
+                vueObjPlat.move(1);
+                break;
+            case Qt.Key_Right:
+                vueObjPlat.move(2);
+                break;
             }
         }
     }
@@ -665,7 +661,7 @@ Window {
         radius : 2
 
         Text {
-            id: best
+            id: best_label
             x: 18
             color: "#e8ded6"
             text: qsTr("BEST")
@@ -675,6 +671,21 @@ Window {
             anchors.horizontalCenterOffset: 0
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 12
+        }
+
+        Text {
+            id: score_best
+            x: 18
+            y: 19
+            text: vueObjPlat.scoresQML[1]
+            font.pixelSize: 14
+            color: "#f9f6f2"
+            anchors.horizontalCenter: parent.horizontalCenter
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            rotation: 0
+            font.bold: true
+            font.family: "Arial"
         }
     }
 
@@ -692,7 +703,7 @@ Window {
         radius : 2
 
         Text {
-            id: score
+            id: score_label
             x: -44
             y: 7
             color: "#e8ded6"
@@ -703,6 +714,21 @@ Window {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.topMargin: 2
             anchors.horizontalCenterOffset: 0
+        }
+
+        Text {
+            id: score_current
+            x: 18
+            y: 20
+            text: vueObjPlat.scoresQML[0]
+            font.pixelSize: 14
+            color: "#f9f6f2"
+            anchors.horizontalCenter: parent.horizontalCenter
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            rotation: 0
+            font.bold: true
+            font.family: "Arial"
         }
     }
 

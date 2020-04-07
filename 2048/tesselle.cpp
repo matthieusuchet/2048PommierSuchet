@@ -1,10 +1,9 @@
 #include "tesselle.h"
 
-Tesselle::Tesselle(int ident, int nombre, int couleur, int iplat, int jplat)
+Tesselle::Tesselle(int nombre, int indice_couleur, int iplat, int jplat)
 {
-    id = ident;
     nb = nombre;
-    indice_coul = 0;
+    indice_coul = indice_couleur;
     coul_texte = "#766e66"; // nombre écrit en gris
     i = iplat;
     j = jplat;
@@ -12,17 +11,12 @@ Tesselle::Tesselle(int ident, int nombre, int couleur, int iplat, int jplat)
 
 Tesselle::Tesselle()
 {
-    Tesselle(0,0,0,0,0);
+    Tesselle(0,0,0,0);
 }
 
 ostream& operator<<(ostream &sortie, Tesselle &d) { // opérateur <<
     sortie << d.nb; // << " " << " " << d.i << " " << d.j << " " << "]";
     return sortie;
-}
-
-bool operator==(const Tesselle &t1, const Tesselle &t2)
-{
-    return (t1.nb == t2.nb);
 }
 
 void Tesselle::SetPosition(int I, int J)
@@ -48,11 +42,6 @@ void Tesselle::IncrCoul()
     }
 }
 
-void Tesselle::IncrNb()
-{
-    nb = 2*nb;
-}
-
 int Tesselle::GetScore()
 {
     return nb;
@@ -68,9 +57,9 @@ int Tesselle::GetJ()
     return j;
 }
 
-void Tesselle::Fusion(Tesselle &t)
+void Tesselle::Fusion()
 {
-    IncrNb();
+    nb = 2*nb;
     IncrCoul();
 }
 

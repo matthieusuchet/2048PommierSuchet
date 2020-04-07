@@ -14,23 +14,24 @@ class Plateau : public QObject
 public:
 
     explicit Plateau(QObject *parent = nullptr); // constructeur
+    void init(); // vide la table et ajoute 2 tesselles pour commencer la partie
+
     Q_PROPERTY(QList<QString> nombreQML READ readMove NOTIFY plateauMoved)
     Q_PROPERTY(QList<bool> visibleQML READ readVisible NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> couleurtextQML READ readCoulText NOTIFY plateauMoved)
+    Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved)
 
-    Q_INVOKABLE void print(int num);
+    Q_PROPERTY(QString testQML READ readTest NOTIFY peutetrefin)  // test pour la fin de partie
+    QString readTest();                                            // idem
 
     QList<QString> readMove();
     QList<bool> readVisible();
     QList<QString> readCouleur();
     QList<QString> readCoulText();
+    QList<QString> readScores();
 
     friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
-
-    bool est_plein(); // le plateau est plein ?
-    void init(); // vide la table et ajoute 2 tesselles pour commencer la partie
-    int get_score();
 
     // ajout des tesselles
     void add_tesselle(Tesselle T); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
@@ -56,11 +57,13 @@ public:
 
 signals:
     void plateauMoved();
+    void peutetrefin();
 
 private:
+    int test = 1;
+
     int score;
     int best_score;
-    int remplissage;         // nombre de tesselles dans le tableau
     int libres;              // nombre de cases libres
 
     Tesselle tab [4][4];     // tableau d'entiers représentant les cases et les tesselles
