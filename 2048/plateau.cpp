@@ -21,7 +21,7 @@ void Plateau::init() // initialisation des variables pour un début de partie
     if (score > best_score) // mise à jour du meilleur score
         best_score = score;
 
-    Tesselle T_init(0,0,0,0);
+    Tesselle T_init(2,0,0);
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             tab[i][j] = T_init;
@@ -72,7 +72,8 @@ QList<QString> Plateau::readCouleur()
     QList<QString> listCouleurs;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            listCouleurs.append(tab[i][j].GetCouleur());
+            int ind = tab[i][j].GetIndCouleur();
+            listCouleurs.append(liste_coul[ind]);
         }
     }
     return listCouleurs;
@@ -96,17 +97,6 @@ QList<QString> Plateau::readScores()
     scores.append(QString::number(best_score)); // meilleur score
     return scores;
 }
-
-
-QString Plateau::readTest()
-{
-    if (test == 1)
-        return "#89817a";
-    else
-        return "#aaaaaa";
-}
-
-
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
@@ -157,16 +147,14 @@ void Plateau::add_tesselle_random()
         }
     }
 
-    int nombre = 2; int indice_couleur = 0;
+    int nombre = 2;
     int proba = rand() % 5; // 1 chance sur 5 d'avoir un 4, sinon un 2
-    if (proba == 0) {nombre = 4; indice_couleur = 1;}
-    Tesselle T( nombre, indice_couleur, iplat, jplat);
+    if (proba == 0) {nombre = 4;}
+    Tesselle T( nombre, iplat, jplat);
 
     add_tesselle(T);
 
     if (a_perdu()) {
-        test = 2;
-        peutetrefin();
 
         init();
         plateauMoved();
@@ -381,24 +369,14 @@ void Plateau::echanger_mem()
     }
 }
 
-void Plateau::mise_a_jour_score()
-{
-    score = 0;
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            if (! cases_libres[i][j])
-                score += tab[i][j].GetScore();
-        }
-    }
-}
-
 void Plateau::undo()
 {
     if (! a_deja_undo) { // si le joueur n'est pas déjà revenu en arrière
         echanger_mem();
         a_deja_undo = true;
-        mise_a_jour_score();
     }
+
+    plateauMoved();
 }
 
 void Plateau::redo()
@@ -406,7 +384,6 @@ void Plateau::redo()
     if (a_deja_undo) { // si c'est bien après un retour en arrière
         echanger_mem();
         a_deja_undo = false;
-        mise_a_jour_score();
     }
 }
 

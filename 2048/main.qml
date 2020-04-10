@@ -12,9 +12,8 @@ Window {
     Text {
         id: titre
         height: 40
-        color: vueObjPlat.testQML
+        color: "#89817a"
         text: qsTr("2048")
-        //text: vueObjPlat.pmoveQML
         rotation: 0
         anchors.top: parent.top
         anchors.left: parent.left
@@ -777,8 +776,9 @@ Window {
 
         MouseArea {
             id: mouseArea_undo
-            width: 23
+            width: 26
             height: 28
+            onClicked: vueObjPlat.undo()
         }
     }
 }

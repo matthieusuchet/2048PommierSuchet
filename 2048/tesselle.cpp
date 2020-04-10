@@ -1,50 +1,27 @@
 #include "tesselle.h"
+#include <math.h>
 
-Tesselle::Tesselle(int nombre, int indice_couleur, int iplat, int jplat)
+Tesselle::Tesselle(int nombre, int iplat, int jplat)
 {
     nb = nombre;
-    indice_coul = indice_couleur;
-    coul_texte = "#766e66"; // nombre écrit en gris
     i = iplat;
     j = jplat;
 }
 
 Tesselle::Tesselle()
 {
-    Tesselle(0,0,0,0);
+    Tesselle(2,0,0);
 }
 
 ostream& operator<<(ostream &sortie, Tesselle &d) { // opérateur <<
-    sortie << d.nb; // << " " << " " << d.i << " " << d.j << " " << "]";
+    sortie << d.nb;
     return sortie;
 }
 
+// Position //
 void Tesselle::SetPosition(int I, int J)
 {
     i = I; j = J;
-}
-
-QString Tesselle::GetCouleur()
-{
-    return liste_coul[indice_coul];
-}
-
-QString Tesselle::GetCoulText()
-{
-    return coul_texte;
-}
-
-void Tesselle::IncrCoul()
-{
-    indice_coul++;
-    if (nb >= 8) {
-        coul_texte = "#f9f6f2"; // nombre écrit en blanc
-    }
-}
-
-int Tesselle::GetScore()
-{
-    return nb;
 }
 
 int Tesselle::GetI()
@@ -57,9 +34,27 @@ int Tesselle::GetJ()
     return j;
 }
 
-void Tesselle::Fusion()
+// Score //
+int Tesselle::GetScore()
 {
-    nb = 2*nb;
-    IncrCoul();
+    return nb;
 }
 
+void Tesselle::Fusion()
+{
+    nb = 2 * nb;
+}
+
+// Couleur //
+int Tesselle::GetIndCouleur()
+{
+    return std::log2(nb) - 1;
+}
+
+QString Tesselle::GetCoulText()
+{
+    if (nb <= 4)
+        return "#766e66";
+    else
+        return "#f9f6f2";
+}

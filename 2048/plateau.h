@@ -1,10 +1,8 @@
 #ifndef PLATEAU_H
 #define PLATEAU_H
 #include <iostream>
-#include <vector>
-using namespace std;
-
 #include <QObject>
+using namespace std;
 
 #include "tesselle.h"
 
@@ -21,9 +19,6 @@ public:
     Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> couleurtextQML READ readCoulText NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved)
-
-    Q_PROPERTY(QString testQML READ readTest NOTIFY peutetrefin)  // test pour la fin de partie
-    QString readTest();                                            // idem
 
     QList<QString> readMove();
     QList<bool> readVisible();
@@ -49,19 +44,15 @@ public:
     bool a_perdu(); // la partie est finie ? ie. table pleine + aucun déplacement licite
 
     // gestion option pédagogique
-    void undo(); // revenir au plateau précédent
+    Q_INVOKABLE void undo(); // revenir au plateau précédent
     void redo(); // aller au plateau suivant
     void copie_tab_mem(); // copier tab dans tab_mem [option pédagogique]
     void echanger_mem(); // échanger les valeurs de tab et de tab_mem
-    void mise_a_jour_score(); // mettre à jour le score en cas de changement de plateau
 
 signals:
     void plateauMoved();
-    void peutetrefin();
 
 private:
-    int test = 1;
-
     int score;
     int best_score;
     int libres;              // nombre de cases libres
@@ -72,6 +63,8 @@ private:
     Tesselle tab_mem [4][4];     // mémorise le plateau du coup d'avant (ou d'après)
     bool cases_libres_mem [4][4];// coordonnées des cases libres
     bool a_deja_undo;        // indique s'il s'agit du plateau suivant ou précédent
+
+    QString liste_coul [12] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#e8c865","#e8c865","#e8c865","#e8c865"};
 };
 
 #endif // PLATEAU_H
