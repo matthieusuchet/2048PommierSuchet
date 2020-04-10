@@ -106,13 +106,13 @@ QString Plateau::readTest()
         return "#aaaaaa";
 }
 
-
+/*
 QList<bool> readFinPartie(){
     QList<bool> ls_visibleGP[2];  // visible true/false pour calque gagné/perdu
 
     return ls_visibleGP;
 }
-
+*/
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
