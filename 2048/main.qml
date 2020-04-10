@@ -744,6 +744,7 @@ Window {
             id: mouseArea_new_game
             width: 89
             height: 28
+            onClicked: vueObjPlat.init()
         }
     }
 

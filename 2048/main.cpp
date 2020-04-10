@@ -15,26 +15,6 @@ int main(int argc, char *argv[])
 
     const QUrl mainQml(QStringLiteral("qrc:/main.qml"));
 
-/*
-    cout << "Hello World!" << endl;
-
-    Plateau P;
-
-    engine.rootContext()->setContextProperty("vueObjPlat", &P);
-
-    cout << P << endl;
-    cout << "________" <<endl;
-
-    P.move(1);
-
-    cout << P << endl;
-    cout << "________" <<endl;
-    P.move(3);
-
-    cout << P << endl;
-    cout << "________" <<endl;
-*/
-
     Plateau P;
     engine.rootContext()->setContextProperty("vueObjPlat", &P);
     engine.load(mainQml);
