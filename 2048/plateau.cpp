@@ -98,6 +98,15 @@ QList<QString> Plateau::readScores()
     return scores;
 }
 
+
+/*
+QList<bool> readFinPartie(){
+    QList<bool> ls_visibleGP[2];  // visible true/false pour calque gagné/perdu
+
+    return ls_visibleGP;
+}
+*/
+
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
@@ -150,7 +159,7 @@ void Plateau::add_tesselle_random()
     int nombre = 2;
     int proba = rand() % 5; // 1 chance sur 5 d'avoir un 4, sinon un 2
     if (proba == 0) {nombre = 4;}
-    Tesselle T( nombre, iplat, jplat);
+    Tesselle T(nombre, iplat, jplat);
 
     add_tesselle(T);
 

@@ -435,7 +435,7 @@ Window {
                 visible: vueObjPlat.visibleQML[10]
                 Text {
                     id: nombre11
-                    color: vueObjPlat.couleurtextQML[10]
+                    color: "#e8ded6"
                     text: vueObjPlat.nombreQML[10]
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
@@ -628,6 +628,46 @@ Window {
                 }
             }
         }
+
+        Rectangle {
+            id: perdu
+            x: 174
+            y: 257
+            color: "#cac0b5"
+            visible: false
+            opacity: 0.641
+            anchors.fill: parent
+
+            Text {
+                id: textPerdu
+                text: qsTr("Perdu !")
+                horizontalAlignment: Text.AlignHCenter
+                font.bold: true
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 20
+            }
+        }
+
+        Rectangle {
+            id: gagne
+            x: 177
+            y: 256
+            color: "#cac0b5"
+            opacity: 0.641
+            anchors.fill: parent
+            visible: false
+            Text {
+                id: textGagne
+                text: qsTr("Gagné !")
+                visible: true
+                font.bold: true
+                anchors.verticalCenter: parent.verticalCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 20
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
     }
 
     Rectangle {
@@ -781,6 +821,7 @@ Window {
             onClicked: vueObjPlat.undo()
         }
     }
+
 }
 
 /*##^##

@@ -19,6 +19,8 @@ public:
     Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> couleurtextQML READ readCoulText NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved)
+  //  Q_PROPERTY(QList<bool> finPartieQML READ readFinPartie NOTIFY plateauMoved)
+
 
     QList<QString> readMove();
     QList<bool> readVisible();
