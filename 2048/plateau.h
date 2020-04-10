@@ -21,6 +21,8 @@ public:
     Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> couleurtextQML READ readCoulText NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved)
+  //  Q_PROPERTY(QList<bool> finPartieQML READ readFinPartie NOTIFY plateauMoved)
+
 
     Q_PROPERTY(QString testQML READ readTest NOTIFY peutetrefin)  // test pour la fin de partie
     QString readTest();                                            // idem
