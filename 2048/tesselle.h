@@ -7,7 +7,7 @@ using namespace std;
 class Tesselle
 {
 public:
-    Tesselle(int nombre, int iplat, int jplat);
+    Tesselle(int exposant, int iplat, int jplat);
     Tesselle();
 
     friend ostream& operator<<(ostream &sortie, Tesselle &d);
@@ -16,14 +16,14 @@ public:
     int GetI();
     int GetJ();
 
-    int GetScore();
-    void Fusion(int base);
+    int GetScore(int base);
+    void Fusion();
 
-    int GetIndCouleur(int base);  // indice de la couleur de la tesselle dans la liste des couleurs définie dans la classe Plateau
+    int GetIndCouleur();  // indice de la couleur de la tesselle dans la liste des couleurs définie dans la classe Plateau
     QString GetCoulText(int base);// couleur du nombre sur la tesselle (blanc ou gris)
 
 private:
-    int nb;
+    int exp;
     int i;
     int j;
 };

@@ -1,16 +1,16 @@
 #include "tesselle.h"
 #include <math.h>
 
-Tesselle::Tesselle(int nombre, int iplat, int jplat)
+Tesselle::Tesselle(int exposant, int iplat, int jplat)
 {
-    nb = nombre;
+    exp = exposant;
     i = iplat;
     j = jplat;
 }
 
 Tesselle::Tesselle()
 {
-    Tesselle(2,0,0);
+    Tesselle(1,0,0);
 }
 
 ostream& operator<<(ostream &sortie, Tesselle &d) {
@@ -35,25 +35,27 @@ int Tesselle::GetJ()
 }
 
 // Score //
-int Tesselle::GetScore()
+int Tesselle::GetScore(int base)
 {
+    int nb = pow(base,exp);
     return nb;
 }
 
-void Tesselle::Fusion(int base)
+void Tesselle::Fusion()
 {
-    nb = base * nb;
+    exp++;
 }
 
 // Couleur //
-int Tesselle::GetIndCouleur(int base)
+int Tesselle::GetIndCouleur()
 {
-    return (int)((std::log(nb) / std::log(base)) -1);
+    int ind = exp-1;
+    return ind;
 }
 
 QString Tesselle::GetCoulText(int base)
 {
-    if (nb <= base*base)
+    if (exp <= 2)
         return "#766e66";
     else
         return "#f9f6f2";

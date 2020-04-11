@@ -78,7 +78,7 @@ QList<QString> Plateau::readCouleur()
     QList<QString> listCouleurs;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            int ind = tab[i][j].GetIndCouleur(base);
+            int ind = tab[i][j].GetIndCouleur();
             listCouleurs.append(liste_coul[ind]);
         }
     }
@@ -90,7 +90,7 @@ QList<QString> Plateau::readCoulText()
     QList<QString> listCouleurs;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            listCouleurs.append(tab[i][j].GetCoulText(base));
+            listCouleurs.append(tab[i][j].GetCoulText());
         }
     }
     return listCouleurs;
@@ -173,9 +173,9 @@ void Plateau::add_tesselle_random()
             }
         }
     }
-    Tesselle T(base, iplat, jplat);
+    Tesselle T(1, iplat, jplat);
     int proba = rand() % 5; // 1 chance sur 5 d'avoir un 4, sinon un 2
-    if (proba == 0) {T.Fusion(base);}
+    if (proba == 0) {T.Fusion();}
 
     add_tesselle(T);
 
@@ -219,7 +219,7 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
     // ajouter EXCEPTION si ( pas fusionnables ) //
     //
     Tesselle* T_new = &vect_tess[x_new];
-    T_new->Fusion(base);
+    T_new->Fusion();
 
     vect_libres[x_old] = true;
     vect_libres[x_new] = false;
