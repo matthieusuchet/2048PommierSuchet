@@ -56,7 +56,8 @@ ApplicationWindow {
                 Menu {
                     title: qsTr("Couleurs")
                     Action {
-                        text: qsTr("Rouge/Jaune")
+                        text: qsTr("Rouge/Jaune classique")
+                        icon.color: "red"
                         onTriggered: vueObjPlat.changer_couleurs(1)}
                     Action {
                         text: qsTr("Bleu/Vert")
