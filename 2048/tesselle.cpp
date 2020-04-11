@@ -13,7 +13,7 @@ Tesselle::Tesselle()
     Tesselle(2,0,0);
 }
 
-ostream& operator<<(ostream &sortie, Tesselle &d) { // opérateur <<
+ostream& operator<<(ostream &sortie, Tesselle &d) {
     sortie << d.nb;
     return sortie;
 }

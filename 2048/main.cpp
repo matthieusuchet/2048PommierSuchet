@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("vueObjPlat", &P);
     engine.load(mainQml);
 
+
     return app.exec();
 }
 
