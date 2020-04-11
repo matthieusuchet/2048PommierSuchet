@@ -77,7 +77,7 @@ private:
     bool gagne;  // vrai si 2048 a été atteint
 
     // liste des couleurs classiques pour les tesselles
-    QString liste_coul [12] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#e8c865","#e8c865","#e8c865","#e8c865"};
+    QString liste_coul [12] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#edcb60","#ecc84f","#edc43d","#eec22e","#77a135"};
 
 };
 
