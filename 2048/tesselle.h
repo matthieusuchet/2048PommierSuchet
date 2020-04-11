@@ -20,7 +20,7 @@ public:
     void Fusion();
 
     int GetIndCouleur();  // indice de la couleur de la tesselle dans la liste des couleurs définie dans la classe Plateau
-    QString GetCoulText(int base);// couleur du nombre sur la tesselle (blanc ou gris)
+    QString GetCoulText();// couleur du nombre sur la tesselle (blanc ou gris)
 
 private:
     int exp;

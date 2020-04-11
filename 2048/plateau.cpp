@@ -52,7 +52,7 @@ QList<QString> Plateau::readMove(){
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             if (cases_libres[i][j] == false)
-                listNombres.append(QString::number(tab[i][j].GetScore()));
+                listNombres.append(QString::number(tab[i][j].GetScore(base)));
             else
                 listNombres.append(QString::number(0));
         }
@@ -224,8 +224,8 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
     vect_libres[x_old] = true;
     vect_libres[x_new] = false;
 
-    score += T_new->GetScore();
-    if(!gagne && T_new->GetScore() == 2048) gagne = true; // on a gagné quand 2048 est atteint
+    score += T_new->GetScore(base);
+    if(!gagne && T_new->GetScore(base) == 2048) gagne = true; // on a gagné quand 2048 est atteint
     libres ++;
 }
 
@@ -244,7 +244,7 @@ bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
                 j_avant --;
 
             if (j_avant>0) { // s'il y a une autre tesselle à gauche
-                if (vect_tess[j].GetScore() == vect_tess[j_avant-1].GetScore()) { // s'il peut y avoir fusion
+                if (vect_tess[j].GetScore(base) == vect_tess[j_avant-1].GetScore(base)) { // s'il peut y avoir fusion
                     if (! deja_fusionne[j_avant-1]) { // si cette case n'a pas déjà fusionné
                         fusion(&vect_tess[0], &vect_libres[0],j,j_avant-1);
                         deja_fusionne[j_avant-1] = true;
@@ -343,7 +343,7 @@ bool Plateau::possible_move(int dir) // est ce qu'un déplacement dans cette dir
                     j_avant --;
 
                 if (j_avant>0) { // s'il y a une autre tesselle à gauche
-                    if (vect_tess[j].GetScore() == vect_tess[j_avant-1].GetScore()) // s'il peut y avoir fusion
+                    if (vect_tess[j].GetScore(base) == vect_tess[j_avant-1].GetScore(base)) // s'il peut y avoir fusion
                         return true;
                     if (j_avant != j) // s'il y a déplacement
                         return true;

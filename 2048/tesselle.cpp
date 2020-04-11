@@ -14,7 +14,7 @@ Tesselle::Tesselle()
 }
 
 ostream& operator<<(ostream &sortie, Tesselle &d) {
-    sortie << d.nb;
+    sortie << d.exp;
     return sortie;
 }
 
@@ -53,7 +53,7 @@ int Tesselle::GetIndCouleur()
     return ind;
 }
 
-QString Tesselle::GetCoulText(int base)
+QString Tesselle::GetCoulText()
 {
     if (exp <= 2)
         return "#766e66";
