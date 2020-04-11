@@ -81,8 +81,10 @@ private:
 
     // liste des couleurs classiques pour les tesselles
     QString liste_coul [17] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#edcb60","#ecc84f","#edc43d","#eec22e","#77a135","#77a135","#77a135","#77a135","#77a135"};
-    // couleurs bleues
-    QString liste_coul_bleu [17] = {"#dae9f9","#c8cae7","#7ebce8","#7ecce7","#81c7b7","#71c2ac","#6365ac","#5357a2","#4c519f","#414d9c","#edc43d","#3b4b9b","#974292","#974292","#974292","#974292","#974292"};
+    // couleurs bleu
+    QString liste_coul_bleu [17] = {"#dae9f9","#c8cae7","#7ebce8","#7ecce7","#81c7b7","#71c2ac","#6365ac","#5357a2","#4c519f","#414d9c","#3b4b9b","#974292","#974292","#974292","#974292","#974292","#974292"};
+    // couleurs jaune/vert
+    QString liste_coul_vert [17] = {"#f9f7d1","#e0eabc","#f7ec67","#feee55","#ffdb4d","#ffd52a","#97c349","#8dbe29","#7fba28","#78b82a","#71b62b","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9"};
 
 };
 
