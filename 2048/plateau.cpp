@@ -11,10 +11,10 @@ using namespace std;
 
 Plateau::Plateau(QObject *parent) : QObject(parent)
 {
-    best_score = 0;
     base = 2;
     jeuDeCouleurs = 1;
     init();
+    best_score = 0;
     srand (time(NULL));
 }
 
@@ -27,7 +27,6 @@ void Plateau::init() // initialisation des variables pour un début de partie
     Tesselle T_init(2,0,0);
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-
             tab[i][j] = T_init;
             cases_libres[i][j] = true;
         }
@@ -398,7 +397,12 @@ void Plateau::copie_tab_mem()
 
 void Plateau::echanger_mem()
 {
+    // échanger le score
+    int score_aux = score;
     score = score_mem;
+    score_mem = score_aux;
+
+    // échenger tab et cases_libres
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             // échanger les valeurs de tab et de tab_mem
@@ -429,6 +433,7 @@ void Plateau::redo()
         echanger_mem();
         a_deja_undo = false;
     }
+    plateauMoved();
 }
 
 
@@ -442,6 +447,11 @@ void Plateau::changer_base(int b)
 void Plateau::changer_couleurs(int c)
 {
     jeuDeCouleurs = c;
-    init();
+    plateauMoved();
 }
 
+void Plateau::reset_best()
+{
+    best_score = 0;
+    plateauMoved();
+}

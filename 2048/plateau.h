@@ -54,12 +54,14 @@ public:
 
     // gestion option pédagogique
     Q_INVOKABLE void undo(); // revenir au plateau précédent
-    void redo(); // aller au plateau suivant
+    Q_INVOKABLE void redo(); // aller au plateau suivant
     void copie_tab_mem(); // copier tab dans tab_mem [option pédagogique]
     void echanger_mem(); // échanger les valeurs de tab et de tab_mem
 
     Q_INVOKABLE void changer_base(int b);
     Q_INVOKABLE void changer_couleurs(int c);
+
+    Q_INVOKABLE void reset_best();
 
 signals:
     void plateauMoved();   // appelé à chaque déplacement des tesselles pour MAJ l'affichage

@@ -22,6 +22,13 @@ ApplicationWindow {
                     text: qsTr("Retour arrière    Ctrl+Z")
                     shortcut: "Ctrl+Z"
                     onTriggered: vueObjPlat.undo()}
+                Action {
+                    text: qsTr("Retour avant    Ctrl+Y")
+                    shortcut: "Ctrl+Y"
+                    onTriggered: vueObjPlat.redo()}
+                Action {
+                    text: qsTr("Remettre meilleur score à zéro")
+                    onTriggered: vueObjPlat.reset_best()}
                 MenuSeparator { }
                 Action { text: qsTr("Quit") }
             }
@@ -870,14 +877,56 @@ ApplicationWindow {
             Action {
                 shortcut: "Ctrl+Z"
                 onTriggered: vueObjPlat.undo()
-                }
             }
+        }
 
         MouseArea {
             id: mouseArea_undo
             width: 26
             height: 28
             onClicked: vueObjPlat.undo()
+        }
+    }
+
+    Rectangle {
+        id: rect_redo
+        x: 62
+        y: 71
+        width: 26
+        height: 28
+        color: "#786d66"
+        radius: 2
+        Text {
+            id: redo
+            color: "#e8ded6"
+            text: "↩︎"
+            transformOrigin: Item.Center
+            z: 0
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.left: parent.left
+            anchors.bottomMargin: 4
+            anchors.top: parent.top
+            horizontalAlignment: Text.AlignHCenter
+            anchors.rightMargin: 3
+            font.pixelSize: 17
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            font.weight: Font.ExtraLight
+            anchors.topMargin: 4
+            anchors.leftMargin: 3
+            renderType: Text.NativeRendering
+            rotation: 180
+            Action {
+                shortcut: "Ctrl+Z"
+            }
+        }
+
+        MouseArea {
+            id: mouseArea_redo
+            width: 26
+            height: 28
+            onClicked: vueObjPlat.redo()
         }
     }
 
