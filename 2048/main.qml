@@ -31,12 +31,20 @@ ApplicationWindow {
                 Menu {
                     title: qsTr("Base")
                     Action {
+                        text: qsTr("2")
+                        onTriggered: vueObjPlat.changer_base(2)}
+                    Action {
                         text: qsTr("3")
-                        onTriggered: vueObjPlat.changer_base(3)
-                    }
-                    Action { text: qsTr("3") }
-                    Action { text: qsTr("5") }
-                    Action { text: qsTr("7") }
+                        onTriggered: vueObjPlat.changer_base(3)}
+                    Action {
+                        text: qsTr("5")
+                        onTriggered: vueObjPlat.changer_base(5)}
+                    Action {
+                        text: qsTr("7")
+                        onTriggered: vueObjPlat.changer_base(7)}
+                    Action {
+                        text: qsTr("11")
+                        onTriggered: vueObjPlat.changer_base(11)}
                 }
 
             }

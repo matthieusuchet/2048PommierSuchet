@@ -40,20 +40,20 @@ int Tesselle::GetScore()
     return nb;
 }
 
-void Tesselle::Fusion()
+void Tesselle::Fusion(int base)
 {
-    nb = 2 * nb;
+    nb = base * nb;
 }
 
 // Couleur //
-int Tesselle::GetIndCouleur()
+int Tesselle::GetIndCouleur(int base)
 {
-    return std::log2(nb) - 1;
+    return (int)((std::log(nb) / std::log(base)) -1);
 }
 
-QString Tesselle::GetCoulText()
+QString Tesselle::GetCoulText(int base)
 {
-    if (nb <= 4)
+    if (nb <= base*base)
         return "#766e66";
     else
         return "#f9f6f2";

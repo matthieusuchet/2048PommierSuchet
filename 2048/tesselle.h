@@ -17,10 +17,10 @@ public:
     int GetJ();
 
     int GetScore();
-    void Fusion();
+    void Fusion(int base);
 
-    int GetIndCouleur();  // indice de la couleur de la tesselle dans la liste des couleurs définie dans la classe Plateau
-    QString GetCoulText();// couleur du nombre sur la tesselle (blanc ou gris)
+    int GetIndCouleur(int base);  // indice de la couleur de la tesselle dans la liste des couleurs définie dans la classe Plateau
+    QString GetCoulText(int base);// couleur du nombre sur la tesselle (blanc ou gris)
 
 private:
     int nb;

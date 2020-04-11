@@ -58,6 +58,8 @@ public:
     void copie_tab_mem(); // copier tab dans tab_mem [option pédagogique]
     void echanger_mem(); // échanger les valeurs de tab et de tab_mem
 
+    Q_INVOKABLE void changer_base(int b);
+
 signals:
     void plateauMoved();   // appelé à chaque déplacement des tesselles pour MAJ l'affichage
     void partieDebOuFin(); // appelé au début et à la fin de chaque partie pour cacher/afficher les calques "perdu"/"gagné"
@@ -66,6 +68,7 @@ private:
     int score;
     int best_score;
     int libres;              // nombre de cases libres
+    int base;
 
     Tesselle tab [4][4];     // tableau de Tesselles représentant les cases et les tesselles
     bool cases_libres [4][4];// coordonnées des cases libres
