@@ -19,6 +19,7 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
 
 void Plateau::init() // initialisation des variables pour un début de partie
 {
+
     if (score > best_score) // mise à jour du meilleur score
         best_score = score;
 
@@ -33,7 +34,10 @@ void Plateau::init() // initialisation des variables pour un début de partie
     score = 0; libres = 16;
     add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
     copie_tab_mem(); a_deja_undo = false; score_mem = 0;
+    gagne = false;
 
+    //signaux pour QML
+    partieDebOuFin();
     plateauMoved();
 }
 
@@ -101,13 +105,25 @@ QList<QString> Plateau::readScores()
 }
 
 
-/*
-QList<bool> readFinPartie(){
-    QList<bool> ls_visibleGP[2];  // visible true/false pour calque gagné/perdu
 
+QList<bool> Plateau::readFinPartie(){
+    QList<bool> ls_visibleGP;  // visible true/false
+                               //pour calque gagné/perdu (dans cet ordre)
+    if(score){
+        if(gagne){
+            ls_visibleGP.append(true);
+            ls_visibleGP.append(false);
+        }else{
+            ls_visibleGP.append(false);
+            ls_visibleGP.append(true);
+        }
+    }else{      // score=0 -> début de partie
+        ls_visibleGP.append(false);
+        ls_visibleGP.append(false);
+    }
     return ls_visibleGP;
 }
-*/
+
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
@@ -164,14 +180,16 @@ void Plateau::add_tesselle_random()
     add_tesselle(T);
 
     if (a_perdu()) {
+        partieDebOuFin();
 
-        init();
-        plateauMoved();
-        //
-        //
-        // faire quelque chose si c'est perdu -> fin de partie //
-        //
-        //
+        /*
+
+         faire quelque chose si c'est perdu -> fin de partie //
+
+        */
+
+        //init();
+
     }
 
 }
@@ -207,6 +225,7 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
     vect_libres[x_new] = false;
 
     score += T_new->GetScore();
+    if(!gagne && T_new->GetScore() == 2048) gagne = true; // on a gagné quand 2048 est atteint
     libres ++;
 }
 
@@ -341,7 +360,7 @@ bool Plateau::possible_move(int dir) // est ce qu'un déplacement dans cette dir
 bool Plateau::a_perdu()
 {
     // le joueur a perdu si aucune case n'est libre et qu'aucun mouvement n'est possible
-    if (libres == 0) {
+    if (!libres) {
         bool peut_bouger = false;
         peut_bouger = possible_move(1) || possible_move(2) || possible_move(3) || possible_move(4);
         return (! peut_bouger);
