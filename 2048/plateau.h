@@ -20,7 +20,7 @@ public:
     Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> couleurtextQML READ readCoulText NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved)
-  //  Q_PROPERTY(QList<bool> finPartieQML READ readFinPartie NOTIFY plateauMoved)
+    Q_PROPERTY(QList<bool> finPartieQML READ readFinPartie NOTIFY partieDebOuFin)
 
 
     QList<QString> readMove();
@@ -28,6 +28,8 @@ public:
     QList<QString> readCouleur();
     QList<QString> readCoulText();
     QList<QString> readScores();
+    QList<bool> readFinPartie();
+
 
     friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
 
@@ -54,6 +56,7 @@ public:
 
 signals:
     void plateauMoved();
+    void partieDebOuFin();
 
 private:
     int score;
@@ -67,8 +70,11 @@ private:
     bool cases_libres_mem [4][4];// coordonnées des cases libres
     int score_mem;    // mémorise le score du coup d'avant
     bool a_deja_undo; // indique s'il s'agit du plateau suivant ou précédent
+    bool gagne;  // vrai si 2048 a été atteint
+
 
     QString liste_coul [12] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#e8c865","#e8c865","#e8c865","#e8c865"};
+
 };
 
 #endif // PLATEAU_H

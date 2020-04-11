@@ -801,14 +801,11 @@ ApplicationWindow {
 
         Text {
             id: new_game
-            x: -101
-            y: 2
-            width: 72
-            height: 16
             color: "#e8ded6"
             text: qsTr("New Game")
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.fill: parent
             font.bold: true
             renderType: Text.NativeRendering
             font.pixelSize: 13
@@ -834,6 +831,8 @@ ApplicationWindow {
             id: undo
             color: "#e8ded6"
             text: qsTr("↪︎")
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
             anchors.right: parent.right
             anchors.rightMargin: 3
             anchors.left: parent.left
