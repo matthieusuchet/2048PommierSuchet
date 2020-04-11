@@ -52,6 +52,8 @@ public:
     void copie_tab_mem(); // copier tab dans tab_mem [option pédagogique]
     void echanger_mem(); // échanger les valeurs de tab et de tab_mem
 
+    Q_INVOKABLE void changer_base(int b);
+
 signals:
     void plateauMoved();
 
@@ -59,6 +61,7 @@ private:
     int score;
     int best_score;
     int libres;              // nombre de cases libres
+    int base;
 
     Tesselle tab [4][4];     // tableau d'entiers représentant les cases et les tesselles
     bool cases_libres [4][4];// coordonnées des cases libres

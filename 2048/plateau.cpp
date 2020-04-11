@@ -11,8 +11,9 @@ using namespace std;
 
 Plateau::Plateau(QObject *parent) : QObject(parent)
 {
-    init();
     best_score = 0;
+    base = 2;
+    init();
     srand (time(NULL));
 }
 
@@ -24,6 +25,7 @@ void Plateau::init() // initialisation des variables pour un début de partie
     Tesselle T_init(2,0,0);
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
+
             tab[i][j] = T_init;
             cases_libres[i][j] = true;
         }
@@ -72,7 +74,7 @@ QList<QString> Plateau::readCouleur()
     QList<QString> listCouleurs;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            int ind = tab[i][j].GetIndCouleur();
+            int ind = tab[i][j].GetIndCouleur(base);
             listCouleurs.append(liste_coul[ind]);
         }
     }
@@ -84,7 +86,7 @@ QList<QString> Plateau::readCoulText()
     QList<QString> listCouleurs;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            listCouleurs.append(tab[i][j].GetCoulText());
+            listCouleurs.append(tab[i][j].GetCoulText(base));
         }
     }
     return listCouleurs;
@@ -155,11 +157,9 @@ void Plateau::add_tesselle_random()
             }
         }
     }
-
-    int nombre = 2;
+    Tesselle T(base, iplat, jplat);
     int proba = rand() % 5; // 1 chance sur 5 d'avoir un 4, sinon un 2
-    if (proba == 0) {nombre = 4;}
-    Tesselle T(nombre, iplat, jplat);
+    if (proba == 0) {T.Fusion(base);}
 
     add_tesselle(T);
 
@@ -201,7 +201,7 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
     // ajouter EXCEPTION si ( pas fusionnables ) //
     //
     Tesselle* T_new = &vect_tess[x_new];
-    T_new->Fusion();
+    T_new->Fusion(base);
 
     vect_libres[x_old] = true;
     vect_libres[x_new] = false;
@@ -401,3 +401,10 @@ void Plateau::redo()
     }
 }
 
+
+
+void Plateau::changer_base(int b)
+{
+    base = b;
+    init();
+}
