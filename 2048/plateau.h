@@ -59,6 +59,7 @@ public:
     void echanger_mem(); // échanger les valeurs de tab et de tab_mem
 
     Q_INVOKABLE void changer_base(int b);
+    Q_INVOKABLE void changer_couleurs(int c);
 
 signals:
     void plateauMoved();   // appelé à chaque déplacement des tesselles pour MAJ l'affichage
@@ -86,6 +87,7 @@ private:
     // couleurs jaune/vert
     QString liste_coul_vert [17] = {"#f9f7d1","#e0eabc","#f7ec67","#feee55","#ffdb4d","#ffd52a","#97c349","#8dbe29","#7fba28","#78b82a","#71b62b","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9"};
 
+    int jeuDeCouleurs;
 };
 
 #endif // PLATEAU_H

@@ -13,6 +13,7 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
 {
     best_score = 0;
     base = 2;
+    jeuDeCouleurs = 1;
     init();
     srand (time(NULL));
 }
@@ -79,7 +80,17 @@ QList<QString> Plateau::readCouleur()
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             int ind = tab[i][j].GetIndCouleur();
-            listCouleurs.append(liste_coul[ind]);
+            switch(jeuDeCouleurs){
+                case 1:
+                    listCouleurs.append(liste_coul[ind]);
+                    break;
+                case 2:
+                    listCouleurs.append(liste_coul_bleu[ind]);
+                    break;
+                case 3:
+                    listCouleurs.append(liste_coul_vert[ind]);
+                    break;
+            }
         }
     }
     return listCouleurs;
@@ -427,3 +438,10 @@ void Plateau::changer_base(int b)
     base = b;
     init();
 }
+
+void Plateau::changer_couleurs(int c)
+{
+    jeuDeCouleurs = c;
+    init();
+}
+

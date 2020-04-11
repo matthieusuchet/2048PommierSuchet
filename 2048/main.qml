@@ -46,6 +46,19 @@ ApplicationWindow {
                         text: qsTr("11")
                         onTriggered: vueObjPlat.changer_base(11)}
                 }
+                Menu {
+                    title: qsTr("Couleurs")
+                    Action {
+                        text: qsTr("Rouge/Jaune")
+                        onTriggered: vueObjPlat.changer_couleurs(1)}
+                    Action {
+                        text: qsTr("Bleu/Vert")
+                        onTriggered: vueObjPlat.changer_couleurs(2)}
+                    Action {
+                        text: qsTr("Jaune/Vert")
+                        onTriggered: vueObjPlat.changer_couleurs(3)}
+                }
+
 
             }
 
