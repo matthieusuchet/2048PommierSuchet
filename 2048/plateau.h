@@ -2,6 +2,7 @@
 #define PLATEAU_H
 #include <iostream>
 #include <QObject>
+#include <QMenuBar>
 using namespace std;
 
 #include "tesselle.h"
@@ -64,7 +65,8 @@ private:
 
     Tesselle tab_mem [4][4];     // mémorise le plateau du coup d'avant (ou d'après)
     bool cases_libres_mem [4][4];// coordonnées des cases libres
-    bool a_deja_undo;        // indique s'il s'agit du plateau suivant ou précédent
+    int score_mem;    // mémorise le score du coup d'avant
+    bool a_deja_undo; // indique s'il s'agit du plateau suivant ou précédent
 
     QString liste_coul [12] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#e8c865","#e8c865","#e8c865","#e8c865"};
 };

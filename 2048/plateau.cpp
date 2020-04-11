@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
-#include <QColor>
+
 using namespace std;
 
 
@@ -28,9 +28,9 @@ void Plateau::init() // initialisation des variables pour un début de partie
             cases_libres[i][j] = true;
         }
     }
-    copie_tab_mem(); a_deja_undo = false;
     score = 0; libres = 16;
     add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
+    copie_tab_mem(); a_deja_undo = false; score_mem = 0;
 
     plateauMoved();
 }
@@ -246,7 +246,7 @@ bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
                 {deplacement(&vect_tess[0], &vect_libres[0],j,0); a_bouge = true;} // déplacement jusqu'à l'indice 0
         }
     }
-    return a_bouge;
+    return a_bouge; // retourne true s'il y a eu au moins un mouvement, false sinon
 }
 
 
@@ -273,7 +273,7 @@ void Plateau::move(int dir)
 
         a_bouge = gauche_ligne(&vect_tess[0], &vect_libres[0]) || a_bouge; // coup vers la gauche dans vect_tess
 
-        // mise à jour tab et cases_libres à partir de vect_tess et vect_libres
+        // mise à jour de tab et cases_libres à partir de vect_tess et vect_libres
         for (int k=0; k<4; k++) {
             if (dir == 1) // gauche
                 {tab[n][k]= vect_tess[k]; cases_libres[n][k] = vect_libres[k];}
@@ -286,8 +286,10 @@ void Plateau::move(int dir)
         }
     }
 
-    if (a_bouge)
+    if (a_bouge) {
         add_tesselle_random();
+        a_deja_undo = false;
+    }
 
     plateauMoved();
 }
@@ -338,6 +340,7 @@ bool Plateau::possible_move(int dir) // est ce qu'un déplacement dans cette dir
 
 bool Plateau::a_perdu()
 {
+    // le joueur a perdu si aucune case n'est libre et qu'aucun mouvement n'est possible
     if (libres == 0) {
         bool peut_bouger = false;
         peut_bouger = possible_move(1) || possible_move(2) || possible_move(3) || possible_move(4);
@@ -354,6 +357,7 @@ bool Plateau::a_perdu()
 
 void Plateau::copie_tab_mem()
 {
+    score_mem = score;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             tab_mem[i][j] = tab[i][j];
@@ -364,6 +368,7 @@ void Plateau::copie_tab_mem()
 
 void Plateau::echanger_mem()
 {
+    score = score_mem;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             // échanger les valeurs de tab et de tab_mem

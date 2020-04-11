@@ -1,13 +1,49 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQuick.Controls 2.14
 
-Window {
+ApplicationWindow {
     id: frame
     visible: true
     width: 400
     height: 500
     color: "#faf8f0"
     title: qsTr("2048")
+
+
+    menuBar: MenuBar {
+            Menu {
+                title: qsTr("Partie")
+                Action {
+                    text: qsTr("Nouvelle partie   Ctrl+N")
+                    shortcut: "Ctrl+N"
+                    onTriggered: vueObjPlat.init()}
+                Action {
+                    text: qsTr("Retour arrière    Ctrl+Z")
+                    shortcut: "Ctrl+Z"
+                    onTriggered: vueObjPlat.undo()}
+                MenuSeparator { }
+                Action { text: qsTr("Quit") }
+            }
+
+            Menu {
+                title: qsTr("Personnaliser")
+                Menu {
+                    title: qsTr("Base")
+                    Action {
+                        text: qsTr("3")
+                        onTriggered: vueObjPlat.changer_base(3)
+                    }
+                    Action { text: qsTr("3") }
+                    Action { text: qsTr("5") }
+                    Action { text: qsTr("7") }
+                }
+
+            }
+
+            focus : false
+    }
+
 
     Text {
         id: titre
@@ -811,7 +847,11 @@ Window {
             renderType: Text.NativeRendering
             font.bold: true
             font.pixelSize: 17
-        }
+            Action {
+                shortcut: "Ctrl+Z"
+                onTriggered: vueObjPlat.undo()
+                }
+            }
 
         MouseArea {
             id: mouseArea_undo
