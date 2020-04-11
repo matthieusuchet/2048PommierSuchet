@@ -435,7 +435,7 @@ Window {
                 visible: vueObjPlat.visibleQML[10]
                 Text {
                     id: nombre11
-                    color: "#e8ded6"
+                    color: vueObjPlat.couleurtextQML[10]
                     text: vueObjPlat.nombreQML[10]
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
@@ -634,7 +634,7 @@ Window {
             x: 174
             y: 257
             color: "#cac0b5"
-            visible: false
+            visible: vueObjPlat.finPartieQML[1]
             opacity: 0.641
             anchors.fill: parent
 
@@ -656,11 +656,10 @@ Window {
             color: "#cac0b5"
             opacity: 0.641
             anchors.fill: parent
-            visible: false
+            visible: vueObjPlat.finPartieQML[0]
             Text {
                 id: textGagne
                 text: qsTr("Gagné !")
-                visible: true
                 font.bold: true
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignHCenter
