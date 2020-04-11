@@ -34,6 +34,7 @@ void Plateau::init() // initialisation des variables pour un début de partie
     copie_tab_mem(); a_deja_undo = false; score_mem = 0;
     gagne = false;
 
+    //signaux pour QML
     partieDebOuFin();
     plateauMoved();
 }
@@ -224,7 +225,7 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
     vect_libres[x_new] = false;
 
     score += T_new->GetScore();
-    if(!gagne && T_new->GetScore() == 16) gagne = true;
+    if(!gagne && T_new->GetScore() == 2048) gagne = true; // on a gagné quand 2048 est atteint
     libres ++;
 }
 
@@ -359,7 +360,7 @@ bool Plateau::possible_move(int dir) // est ce qu'un déplacement dans cette dir
 bool Plateau::a_perdu()
 {
     // le joueur a perdu si aucune case n'est libre et qu'aucun mouvement n'est possible
-    if (libres == 0) {
+    if (!libres) {
         bool peut_bouger = false;
         peut_bouger = possible_move(1) || possible_move(2) || possible_move(3) || possible_move(4);
         return (! peut_bouger);

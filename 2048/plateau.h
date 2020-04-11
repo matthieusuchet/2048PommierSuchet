@@ -15,6 +15,9 @@ public:
     explicit Plateau(QObject *parent = nullptr); // constructeur
     Q_INVOKABLE void init(); // vide la table et ajoute 2 tesselles pour commencer la partie
 
+
+    /// interaction avec QML
+    //propriétés d'objets QML modifiables depuis le C++
     Q_PROPERTY(QList<QString> nombreQML READ readMove NOTIFY plateauMoved)
     Q_PROPERTY(QList<bool> visibleQML READ readVisible NOTIFY plateauMoved)
     Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved)
@@ -22,7 +25,7 @@ public:
     Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved)
     Q_PROPERTY(QList<bool> finPartieQML READ readFinPartie NOTIFY partieDebOuFin)
 
-
+    //lecture de ces propriétés depuis le C++ vers le QML
     QList<QString> readMove();
     QList<bool> readVisible();
     QList<QString> readCouleur();
@@ -33,6 +36,7 @@ public:
 
     friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
 
+    /// gestion du jeu
     // ajout des tesselles
     void add_tesselle(Tesselle T); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
     void add_tesselle_random(); // ajoute une tesselle (2 ou 4) de façon aléatoire sur une case libre
@@ -55,15 +59,15 @@ public:
     void echanger_mem(); // échanger les valeurs de tab et de tab_mem
 
 signals:
-    void plateauMoved();
-    void partieDebOuFin();
+    void plateauMoved();   // appelé à chaque déplacement des tesselles pour MAJ l'affichage
+    void partieDebOuFin(); // appelé au début et à la fin de chaque partie pour cacher/afficher les calques "perdu"/"gagné"
 
 private:
     int score;
     int best_score;
     int libres;              // nombre de cases libres
 
-    Tesselle tab [4][4];     // tableau d'entiers représentant les cases et les tesselles
+    Tesselle tab [4][4];     // tableau de Tesselles représentant les cases et les tesselles
     bool cases_libres [4][4];// coordonnées des cases libres
 
     Tesselle tab_mem [4][4];     // mémorise le plateau du coup d'avant (ou d'après)
@@ -72,7 +76,7 @@ private:
     bool a_deja_undo; // indique s'il s'agit du plateau suivant ou précédent
     bool gagne;  // vrai si 2048 a été atteint
 
-
+    // liste des couleurs classiques pour les tesselles
     QString liste_coul [12] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#e8c865","#e8c865","#e8c865","#e8c865"};
 
 };
