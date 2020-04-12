@@ -206,113 +206,100 @@ void Plateau::add_tesselle_random()
 // déplacements des tesselles //
 // /////////////////////////////
 
-void Plateau::deplacement(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new)
+void Plateau::deplacement(int x_old, int x_new)
 {
     //
     // ajouter EXCEPTION si ( cases_libres[x][y] = false ) //
     //
-    vect_tess[x_new].SetExp(vect_tess[x_old].GetExp());
+    vect_tess[x_new]->SetExp(vect_tess[x_old]->GetExp());
 
-    vect_libres[x_old] = true;
-    vect_libres[x_new] = false;
+    *vect_libres[x_old] = true;
+    *vect_libres[x_new] = false;
 }
 
-void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_new)
+void Plateau::fusion(int x_old, int x_new)
 {
     //
     // ajouter EXCEPTION si ( pas fusionnables ) //
     //
-    vect_tess[x_new].Fusion();
+    vect_tess[x_new]->Fusion();
 
-    vect_libres[x_old] = true;
-    vect_libres[x_new] = false;
+    *vect_libres[x_old] = true;
+    *vect_libres[x_new] = false;
 
-    score += vect_tess[x_new].GetScore(base);
-    if(!gagne && vect_tess[x_new].GetScore(base) == 2048) gagne = true; // on a gagné quand 2048 est atteint
+    score += vect_tess[x_new]->GetScore(base);
+    if(!gagne && vect_tess[x_new]->GetScore(base) == 2048) gagne = true; // on a gagné quand 2048 est atteint
     libres ++;
 }
 
-bool Plateau::gauche_ligne(Tesselle* vect_tess, bool* vect_libres)
-// réalise un coup vers la gauche dans vect_libres (vecteur de 4 tesselles) suivant les règles du 2048
-// vect_libres est le vecteur booléen de présence associé à vect_tess
+void Plateau::pointage_vect(int dir, int n)
 {
-    bool a_bouge = false; // vérifie si au moins un mouvent a été fait
-    bool deja_fusionne [4] = {false, false, false, false}; // verifie si une case a déjà fusionné pour pas qu'elle fusionne 2 fois
-    for (int j=1; j<4; j++) { // on saute la tesselle la plus à gauche (j=0) qui ne bougera pas de toute façon
-
-        if (vect_libres[j] == false) { // s'il y a une tesselle en indice j à considérer
-
-            int j_avant = j; // indice de la derniere case vide à gauche
-            while ((j_avant>=1) && (vect_libres[j_avant-1] == true))
-                j_avant --;
-
-            if (j_avant>0) { // s'il y a une autre tesselle à gauche
-                if (vect_tess[j].GetScore(base) == vect_tess[j_avant-1].GetScore(base)) { // s'il peut y avoir fusion
-                    if (! deja_fusionne[j_avant-1]) { // si cette case n'a pas déjà fusionné
-                        fusion(&vect_tess[0], &vect_libres[0],j,j_avant-1);
-                        deja_fusionne[j_avant-1] = true;
-                        a_bouge = true;
-                    }
-                    else { // si la case a déjà fusionné, elle ne doit pas fusionner 2 fois
-                        if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
-                            {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
-                    }
-                }
-                else {// si les nombres ne sont pas identiques, il n'y a pas fusion
-                    if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
-                        {deplacement(&vect_tess[0], &vect_libres[0],j,j_avant); a_bouge = true;}
-                }
-            }
-
-            else // s'il n'y a pas de tesselle à gauche
-                {deplacement(&vect_tess[0], &vect_libres[0],j,0); a_bouge = true;} // déplacement jusqu'à l'indice 0
-        }
+    for (int k=0; k<4; k++) { // parcours des cases de chaque ligne ou colonne
+        if (dir == 1) // gauche
+            {vect_tess[k] = &tab[n][k]; vect_libres[k] = &cases_libres[n][k];}
+        if (dir == 2) //droite
+            {vect_tess[k] = &tab[n][4-k-1]; vect_libres[k] = &cases_libres[n][4-k-1];}
+        if (dir == 3) // haut
+            {vect_tess[k] = &tab[k][n]; vect_libres[k] = &cases_libres[k][n];}
+        if (dir == 4) // bas
+            {vect_tess[k] = &tab[4-k-1][n]; vect_libres[k] = &cases_libres[4-k-1][n];}
     }
-    return a_bouge; // retourne true s'il y a eu au moins un mouvement, false sinon
 }
 
-
-void Plateau::move(int dir)
+bool Plateau::move(int dir, bool jouer)
 {
     copie_tab_mem();      // on mémorise le plateau avant de le modifier
     bool a_bouge = false; // vérifie si au moins un mouvent a été fait
 
-    for (int n=0; n<4; n++) { // parcours des lignes ou colonnes selon la direction
-        // on met toutes les tesselles de chaque ligne ou colonne dans vect_tess de gauche à droite
+    for (int n=0; n<4; n++) { // parcours les lignes ou colonnes selon la direction dir
+        // on fait pointer les élements de vect_tesselle vers les tesselles de chaque ligne ou colonne de tab, de gauche à droite
         // en sorte qu'un coup dans n'importe quelle direction revienne à un coup vers la gauche dans vect_tess
-        Tesselle vect_tess[4];
-        bool vect_libres[4];
-        for (int k=0; k<4; k++) { // parcours des cases de chaque ligne ou colonne
-            if (dir == 1) // gauche
-                {vect_tess[k] = tab[n][k]; vect_libres[k] = cases_libres[n][k];}
-            if (dir == 2) //droite
-                {vect_tess[k] = tab[n][4-k-1]; vect_libres[k] = cases_libres[n][4-k-1];}
-            if (dir == 3) // haut
-                {vect_tess[k] = tab[k][n]; vect_libres[k] = cases_libres[k][n];}
-            if (dir == 4) // bas
-                {vect_tess[k] = tab[4-k-1][n]; vect_libres[k] = cases_libres[4-k-1][n];}
-        }
+        // idem avec vect_libres qui pointe vers la ligne ou colonne en question de cases_libres
 
-        a_bouge = gauche_ligne(&vect_tess[0], &vect_libres[0]) || a_bouge; // coup vers la gauche dans vect_tess
+        pointage_vect(dir,n);
 
-        // mise à jour de tab et cases_libres à partir de vect_tess et vect_libres
-        for (int k=0; k<4; k++) {
-            if (dir == 1) // gauche
-                {tab[n][k]= vect_tess[k]; cases_libres[n][k] = vect_libres[k];}
-            if (dir == 2) // droite
-                {tab[n][4-k-1] = vect_tess[k]; cases_libres[n][4-k-1] = vect_libres[k];}
-            if (dir == 3) // haut
-                {tab[k][n] = vect_tess[k]; cases_libres[k][n] = vect_libres[k];}
-            if (dir == 4) // bas
-                {tab[4-k-1][n] = vect_tess[k]; cases_libres[4-k-1][n] = vect_libres[k];}
+        // on réalise un coup vers la gauche dans vect_libres suivant les règles du 2048
+        bool deja_fusionne [4] = {false, false, false, false}; // verifie si une case a déjà fusionné pour pas qu'elle fusionne 2 fois
+        for (int j=1; j<4; j++) { // on saute la tesselle la plus à gauche (j=0) qui ne bougera pas de toute façon
+
+            if (*vect_libres[j] == false) { // s'il y a une tesselle en indice j à considérer
+
+                int j_avant = j; // indice de la derniere case vide à gauche
+                while ((j_avant>=1) && (*vect_libres[j_avant-1] == true))
+                    j_avant --;
+
+                if (j_avant>0) { // s'il y a une autre tesselle à gauche
+                    if (vect_tess[j]->GetScore(base) == vect_tess[j_avant-1]->GetScore(base)) { // s'il peut y avoir fusion
+                        if (! deja_fusionne[j_avant-1]) { // si cette case n'a pas déjà fusionné
+                            if (jouer) fusion(j,j_avant-1);
+                            deja_fusionne[j_avant-1] = true;
+                            a_bouge = true;
+                        }
+                        else { // si la case a déjà fusionné, elle ne doit pas fusionner 2 fois
+                            if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
+                                {if (jouer) deplacement(j,j_avant); a_bouge = true;}
+                        }
+                    }
+                    else {// si les nombres ne sont pas identiques, il n'y a pas fusion
+                        if (j!=j_avant) // déplacement vers j_avant si c'est une case différente de la case actuelle
+                            {if (jouer) deplacement(j,j_avant); a_bouge = true;}
+                    }
+                }
+
+                else // s'il n'y a pas de tesselle à gauche
+                    {if (jouer) deplacement(j,0); a_bouge = true;} // déplacement jusqu'à l'indice 0
+            }
         }
     }
-    if (a_bouge) {
+
+    if (a_bouge && jouer) { // si le coup a conduit à un mouvement, on ajoute une nouvelle tesselle
         add_tesselle_random();
         a_deja_undo = false;
     }
 
     plateauMoved();
+
+    return a_bouge;
 }
 
 
@@ -320,51 +307,12 @@ void Plateau::move(int dir)
 // /////////////////////////////
 // gestion fin de partie ///////
 // /////////////////////////////
-
-bool Plateau::possible_move(int dir) // est ce qu'un déplacement dans cette direction conduit à une modification du plateau
-{
-    for (int n=0; n<4; n++) { // parcours des lignes ou colonnes selon la direction
-        Tesselle vect_tess[4];
-        bool vect_libres[4];
-        for (int k=0; k<4; k++) { // parcours des cases de chaque ligne ou colonne
-            if (dir == 1) // gauche
-                {vect_tess[k] = tab[n][k]; vect_libres[k] = cases_libres[n][k];}
-            if (dir == 2) //droite
-                {vect_tess[k] = tab[n][4-k-1]; vect_libres[k] = cases_libres[n][4-k-1];}
-            if (dir == 3) // haut
-                {vect_tess[k] = tab[k][n]; vect_libres[k] = cases_libres[k][n];}
-            if (dir == 4) // bas
-                {vect_tess[k] = tab[4-k-1][n]; vect_libres[k] = cases_libres[4-k-1][n];}
-        }
-
-        for (int j=1; j<4; j++) {
-            if (vect_libres[j] == false) {
-
-                int j_avant = j; // indice de la derniere case vide à gauche
-                while ((j_avant>=1) && (vect_libres[j_avant-1] == true))
-                    j_avant --;
-
-                if (j_avant>0) { // s'il y a une autre tesselle à gauche
-                    if (vect_tess[j].GetScore(base) == vect_tess[j_avant-1].GetScore(base)) // s'il peut y avoir fusion
-                        return true;
-                    if (j_avant != j) // s'il y a déplacement
-                        return true;
-                }
-
-                if (j_avant==0) // s'il n'y a pas de tesselle à gauche et ya déplacement
-                    return true; // déplacement jusqu'à l'indice 0
-            }
-        }
-    }
-    return false;
-}
-
 bool Plateau::a_perdu()
 {
     // le joueur a perdu si aucune case n'est libre et qu'aucun mouvement n'est possible
     if (!libres) {
         bool peut_bouger = false;
-        peut_bouger = possible_move(1) || possible_move(2) || possible_move(3) || possible_move(4);
+        peut_bouger = move(1,false) || move(2,false) || move(3,false) || move(4,false);
         return (! peut_bouger);
     }
     return false;
@@ -427,8 +375,6 @@ void Plateau::redo()
     }
     plateauMoved();
 }
-
-
 
 void Plateau::changer_base(int b)
 {

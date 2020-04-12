@@ -4,7 +4,6 @@
 Tesselle::Tesselle(int exposant)
 {
     exp = exposant;
-    cout << '1';
 }
 
 
