@@ -7,14 +7,12 @@ using namespace std;
 class Tesselle
 {
 public:
-    Tesselle(int exposant, int iplat, int jplat);
-    Tesselle();
+    Tesselle(int exposant = 1);
 
     friend ostream& operator<<(ostream &sortie, Tesselle &d);
 
-    void SetPosition(int i, int j);
-    int GetI();
-    int GetJ();
+    void SetExp(int exposant);
+    int GetExp();
 
     int GetScore(int base);
     void Fusion();
@@ -24,8 +22,6 @@ public:
 
 private:
     int exp;
-    int i;
-    int j;
 };
 
 #endif // TESSELLE_H

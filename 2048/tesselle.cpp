@@ -1,40 +1,29 @@
 #include "tesselle.h"
 #include <math.h>
 
-Tesselle::Tesselle(int exposant, int iplat, int jplat)
+Tesselle::Tesselle(int exposant)
 {
     exp = exposant;
-    i = iplat;
-    j = jplat;
+    cout << '1';
 }
 
-Tesselle::Tesselle()
-{
-    Tesselle(1,0,0);
-}
 
 ostream& operator<<(ostream &sortie, Tesselle &d) {
     sortie << d.exp;
     return sortie;
 }
 
-// Position //
-void Tesselle::SetPosition(int I, int J)
-{
-    i = I; j = J;
-}
-
-int Tesselle::GetI()
-{
-    return i;
-}
-
-int Tesselle::GetJ()
-{
-    return j;
-}
-
 // Score //
+void Tesselle::SetExp(int exposant)
+{
+    exp = exposant;
+}
+
+int Tesselle::GetExp()
+{
+    return exp;
+}
+
 int Tesselle::GetScore(int base)
 {
     int nb = pow(base,exp);

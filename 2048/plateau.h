@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QObject>
 #include <QMenuBar>
+#include <vector>
 using namespace std;
 
 #include "tesselle.h"
@@ -38,7 +39,7 @@ public:
 
     /// gestion du jeu
     // ajout des tesselles
-    void add_tesselle(Tesselle T); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
+    void add_tesselle(int exp, int i, int j); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
     void add_tesselle_random(); // ajoute une tesselle (2 ou 4) de façon aléatoire sur une case libre
 
     // déplacement des tesselles

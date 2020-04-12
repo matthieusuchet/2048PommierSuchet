@@ -1,5 +1,4 @@
 #include "plateau.h"
-#include <iostream>
 #include <cstdlib>
 #include <stdlib.h>
 #include <stdio.h>
@@ -24,10 +23,9 @@ void Plateau::init() // initialisation des variables pour un début de partie
     if (score > best_score) // mise à jour du meilleur score
         best_score = score;
 
-    Tesselle T_init(2,0,0);
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            tab[i][j] = T_init;
+            tab[i][j].SetExp(1);
             cases_libres[i][j] = true;
         }
     }
@@ -36,7 +34,7 @@ void Plateau::init() // initialisation des variables pour un début de partie
     copie_tab_mem(); a_deja_undo = false; score_mem = 0;
     gagne = false;
 
-    //signaux pour QML
+    // signaux pour QML
     partieDebOuFin();
     plateauMoved();
 }
@@ -134,7 +132,6 @@ QList<bool> Plateau::readFinPartie(){
     return ls_visibleGP;
 }
 
-
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
@@ -154,13 +151,12 @@ ostream& operator<<(ostream &sortie, Plateau &p) {
 // ajout des tesselles /////////
 // /////////////////////////////
 
-void Plateau::add_tesselle(Tesselle T) // ajouter la tesselle T au plateau
+void Plateau::add_tesselle(int exp, int i, int j) // ajouter une tesselle au plateau
 {
     //
     // ajouter EXCEPTION si (cases_libres[i][j] == false) //
     //
-    int i = T.GetI(); int j = T.GetJ(); // coordonnées de la tesselle
-    tab[i][j] = T;
+    tab[i][j].SetExp(exp);
     cases_libres[i][j] = false;
     libres --;
 }
@@ -183,11 +179,11 @@ void Plateau::add_tesselle_random()
             }
         }
     }
-    Tesselle T(1, iplat, jplat);
+    int exp = 1;
     int proba = rand() % 5; // 1 chance sur 5 d'avoir un 4, sinon un 2
-    if (proba == 0) {T.Fusion();}
+    if (proba == 0) {exp = 2;}
 
-    add_tesselle(T);
+    add_tesselle(exp,iplat,jplat);
 
     if (a_perdu()) {
         partieDebOuFin();
@@ -215,9 +211,7 @@ void Plateau::deplacement(Tesselle* vect_tess, bool* vect_libres, int x_old, int
     //
     // ajouter EXCEPTION si ( cases_libres[x][y] = false ) //
     //
-    Tesselle T_new = vect_tess[x_old];
-    T_new.SetPosition(T_new.GetI(),x_new);
-    vect_tess[x_new] = T_new;
+    vect_tess[x_new].SetExp(vect_tess[x_old].GetExp());
 
     vect_libres[x_old] = true;
     vect_libres[x_new] = false;
@@ -228,14 +222,13 @@ void Plateau::fusion(Tesselle* vect_tess, bool* vect_libres, int x_old, int x_ne
     //
     // ajouter EXCEPTION si ( pas fusionnables ) //
     //
-    Tesselle* T_new = &vect_tess[x_new];
-    T_new->Fusion();
+    vect_tess[x_new].Fusion();
 
     vect_libres[x_old] = true;
     vect_libres[x_new] = false;
 
-    score += T_new->GetScore(base);
-    if(!gagne && T_new->GetScore(base) == 2048) gagne = true; // on a gagné quand 2048 est atteint
+    score += vect_tess[x_new].GetScore(base);
+    if(!gagne && vect_tess[x_new].GetScore(base) == 2048) gagne = true; // on a gagné quand 2048 est atteint
     libres ++;
 }
 
@@ -314,7 +307,6 @@ void Plateau::move(int dir)
                 {tab[4-k-1][n] = vect_tess[k]; cases_libres[4-k-1][n] = vect_libres[k];}
         }
     }
-
     if (a_bouge) {
         add_tesselle_random();
         a_deja_undo = false;
@@ -389,7 +381,7 @@ void Plateau::copie_tab_mem()
     score_mem = score;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            tab_mem[i][j] = tab[i][j];
+            tab_mem[i][j].SetExp(tab[i][j].GetExp());
             cases_libres_mem[i][j] = cases_libres[i][j];
         }
     }
@@ -402,13 +394,13 @@ void Plateau::echanger_mem()
     score = score_mem;
     score_mem = score_aux;
 
-    // échenger tab et cases_libres
+    // échanger tab et cases_libres
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             // échanger les valeurs de tab et de tab_mem
-            Tesselle tab_aux = tab[i][j];
-            tab[i][j] = tab_mem[i][j];
-            tab_mem[i][j] = tab_aux;
+            int exp_aux = tab[i][j].GetExp();
+            tab[i][j].SetExp(tab_mem[i][j].GetExp());
+            tab_mem[i][j].SetExp(exp_aux);
             // idem pour cases_libres et cases_libres_mem
             bool case_aux = cases_libres[i][j];
             cases_libres[i][j] = cases_libres_mem[i][j];

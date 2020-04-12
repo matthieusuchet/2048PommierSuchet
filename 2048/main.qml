@@ -15,15 +15,15 @@ ApplicationWindow {
             Menu {
                 title: qsTr("Partie")
                 Action {
-                    text: qsTr("Nouvelle partie   Ctrl+N")
+                    text: qsTr("Nouvelle partie (Ctrl+N)")
                     shortcut: "Ctrl+N"
                     onTriggered: vueObjPlat.init()}
                 Action {
-                    text: qsTr("Retour arrière    Ctrl+Z")
+                    text: qsTr("Retour arrière (Ctrl+Z)")
                     shortcut: "Ctrl+Z"
                     onTriggered: vueObjPlat.undo()}
                 Action {
-                    text: qsTr("Retour avant    Ctrl+Y")
+                    text: qsTr("Retour avant (Ctrl+Y)")
                     shortcut: "Ctrl+Y"
                     onTriggered: vueObjPlat.redo()}
                 Action {
@@ -31,6 +31,8 @@ ApplicationWindow {
                     onTriggered: vueObjPlat.reset_best()}
                 MenuSeparator { }
                 Action { text: qsTr("Quit") }
+
+                focus : false
             }
 
             Menu {
@@ -67,7 +69,7 @@ ApplicationWindow {
                         onTriggered: vueObjPlat.changer_couleurs(3)}
                 }
 
-
+                focus : false
             }
 
             focus : false
