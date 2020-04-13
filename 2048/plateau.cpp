@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+#include <QFile>
+#include <QTextStream>
 
 using namespace std;
 
@@ -15,6 +17,7 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
     init();
     best_score = 0;
     srand (time(NULL));
+    loadGame();
 }
 
 void Plateau::init() // initialisation des variables pour un début de partie
@@ -134,6 +137,8 @@ QList<bool> Plateau::readFinPartie(){
     }
     return ls_visibleGP;
 }
+
+///
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
@@ -319,6 +324,7 @@ bool Plateau::a_perdu()
 void Plateau::continuer(){
     gagne_mais_continue = true;
     partieDebOuFin();
+    saveGame();
 }
 
 
@@ -377,3 +383,40 @@ void Plateau::reset_best()
     best_score = 0;
     plateauMoved();
 }
+
+///
+/// sauvegarde de la dernière partie en cours
+///
+
+
+void Plateau::saveGame(){
+    QList<int> QTableau;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            QTableau.append(tab[i][j].GetExp());
+        }
+    }
+    QString filename="DernierePartie.dat";
+    QFile file( filename );
+    if ( file.open(QIODevice::ReadWrite) )
+    {
+        QDataStream out( &file );
+        out << QTableau;
+    }
+}
+
+
+void Plateau::loadGame(){
+    QFile file("DernierePartie.dat");
+    if(file.open(QIODevice::ReadOnly)){
+        QDataStream in(&file);    // read the data serialized from the file
+        QList<int> QTableau;
+        in >> QTableau;
+
+        for(int i=0;i<16;i++){
+            cout << QTableau[i] << " ";
+        }
+        cout << endl;
+    }
+}
+

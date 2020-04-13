@@ -62,6 +62,9 @@ public:
 
     Q_INVOKABLE void reset_best();
 
+    void saveGame();
+    void loadGame();
+
 signals:
     void plateauMoved();   // appelé à chaque déplacement des tesselles pour MAJ l'affichage
     void partieDebOuFin(); // appelé au début et à la fin de chaque partie pour cacher/afficher les calques "perdu"/"gagné"
