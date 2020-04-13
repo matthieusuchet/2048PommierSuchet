@@ -61,6 +61,7 @@ public:
     Q_INVOKABLE void changer_couleurs(int c);
 
     Q_INVOKABLE void reset_best();
+    int getIndBest();
 
     Q_INVOKABLE void saveGame();
     bool loadGame();
@@ -71,10 +72,10 @@ signals:
 
 private:
     int score;
-    int best_score;
+    int best_scores[4]; // best pour chaque base
     int libres; // nombre de cases libres
     int base;
-    int partieStockee[20]; // initialiser ?
+    int partieStockee[23]; // initialiser ?
 
     // tableaux pour représenter la partie en cours
     Tesselle tab [4][4];      // tableau de Tesselles représentant les cases et les tesselles
