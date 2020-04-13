@@ -14,7 +14,7 @@ class Plateau : public QObject
 public:
 
     explicit Plateau(QObject *parent = nullptr); // constructeur
-    Q_INVOKABLE void init(); // vide la table et ajoute 2 tesselles pour commencer la partie
+    Q_INVOKABLE void init(bool dejaJoue); // vide la table et ajoute 2 tesselles pour commencer la partie
 
 
     /// interaction avec QML
@@ -62,6 +62,9 @@ public:
 
     Q_INVOKABLE void reset_best();
 
+    Q_INVOKABLE void saveGame();
+    bool loadGame();
+
 signals:
     void plateauMoved();   // appelé à chaque déplacement des tesselles pour MAJ l'affichage
     void partieDebOuFin(); // appelé au début et à la fin de chaque partie pour cacher/afficher les calques "perdu"/"gagné"
@@ -71,6 +74,7 @@ private:
     int best_score;
     int libres; // nombre de cases libres
     int base;
+    int partieStockee[19]; // initialiser ?
 
     // tableaux pour représenter la partie en cours
     Tesselle tab [4][4];      // tableau de Tesselles représentant les cases et les tesselles

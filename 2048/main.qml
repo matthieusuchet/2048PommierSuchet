@@ -9,7 +9,7 @@ ApplicationWindow {
     height: 500
     color: "#faf8f0"
     title: qsTr("2048")
-
+    onClosing: vueObjPlat.saveGame()
 
     menuBar: MenuBar {
             Menu {
@@ -17,7 +17,7 @@ ApplicationWindow {
                 Action {
                     text: qsTr("Nouvelle partie (Ctrl+N)")
                     shortcut: "Ctrl+N"
-                    onTriggered: vueObjPlat.init()}
+                    onTriggered: vueObjPlat.init(false)}
                 Action {
                     text: qsTr("Retour arrière (Ctrl+Z)")
                     shortcut: "Ctrl+Z"
@@ -33,7 +33,10 @@ ApplicationWindow {
                 Action {
                     text: qsTr("Quitter (Esc)")
                     shortcut: "Escape"
-                    onTriggered: Qt.quit()
+                    onTriggered: {
+                        vueObjPlat.saveGame()
+                        Qt.quit()
+                    }
                 }
 
                 focus : false
@@ -880,7 +883,7 @@ ApplicationWindow {
             id: mouseArea_new_game
             width: 89
             height: 28
-            onClicked: vueObjPlat.init()
+            onClicked: vueObjPlat.init(false)
         }
     }
 
