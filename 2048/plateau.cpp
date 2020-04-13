@@ -40,6 +40,7 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
         }else{
             gagne = false; gagne_mais_continue = false;
         }
+        base = partieStockee[19];
     }else{        // si c'est la première fois qu'on joue OU en cours d'execution lors d'une nouvelle partie
         if (score > best_score) // mise à jour du meilleur score
             best_score = score;
@@ -63,8 +64,6 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
         for (int j=0; j<4; j++)
             tab[i][j].coup(); // mise en mémoire du plateau initial
     }
-
-
 
     // signaux pour QML
     partieDebOuFin();
@@ -154,24 +153,6 @@ QList<bool> Plateau::readFinPartie(){
         ls_visibleGP.append(false);
     }
 
-    /*
-    if(score){
-        if(gagne && !gagne_mais_continue){
-            ls_visibleGP.append(true);
-            ls_visibleGP.append(false);
-        }else if(a_perdu()){
-            ls_visibleGP.append(false);
-            ls_visibleGP.append(true);
-        }else if(gagne_mais_continue && !a_perdu()){
-            ls_visibleGP.append(false);
-            ls_visibleGP.append(false);
-        }
-    }else{      // score=0 -> début de partie
-        ls_visibleGP.append(false);
-        ls_visibleGP.append(false);
-    }
-    */
-
     return ls_visibleGP;
 }
 
@@ -194,9 +175,6 @@ ostream& operator<<(ostream &sortie, Plateau &p) {
 
 void Plateau::add_tesselle(int exp, int i, int j) // ajouter une tesselle au plateau
 {
-    //
-    // ajouter EXCEPTION si (cases_libres[i][j] == false) //
-    //
     tab[i][j].SetExp(exp);
     cases_libres[i][j] = false;
     libres --;
@@ -206,14 +184,14 @@ void Plateau::add_tesselle_random()
 {
     int b = rand() % libres; // case libre au hazard
     int c = 0;               // compteur
-    int iplat; int jplat;    // coordonnées de la nouvelle tesselle
+    int iplat=0; int jplat=0;    // coordonnées de la nouvelle tesselle
 
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
             if (cases_libres[i][j]) { // on cherche la b-ième case libre
                 if (c == b)
                     {iplat = i; jplat = j;}
-                c += 1;
+                c++;
             }
         }
     }
@@ -225,15 +203,6 @@ void Plateau::add_tesselle_random()
 
     if (a_perdu()) {
         partieDebOuFin();
-
-        /*
-
-         faire quelque chose si c'est perdu -> fin de partie //
-
-        */
-
-        //init();
-
     }
 
 }
@@ -264,7 +233,7 @@ void Plateau::fusion(int x_old, int x_new)
     score += vect_tess[x_new]->GetScore(base);
     if(score>best_score) best_score=score;
 
-    if(!gagne && vect_tess[x_new]->GetExp() == 4){
+    if(!gagne && vect_tess[x_new]->GetExp() == 11){
         gagne = true; // on a gagné quand 2048 (ou équivalent) est atteint
         partieDebOuFin();
     }
@@ -441,6 +410,8 @@ void Plateau::saveGame(){   // sauvegarde la partie en cours lors de la fermetur
     }else{
         QTableau.append(0);
     }
+
+    QTableau.append(base);
     QString filename="DernierePartie.dat";  // fichier .dat créé ou modifié dans le repertoire local
     QFile file( filename );
     if ( file.open(QIODevice::ReadWrite) )
@@ -457,7 +428,7 @@ bool Plateau::loadGame(){
         QDataStream in(&file);
         QList<int> QTableau;
         in >> QTableau;     // charge la QList contenue dans le fichier .dat
-        for(int i=0;i<19;i++){
+        for(int i=0;i<20;i++){
             partieStockee[i] = QTableau[i];
         }
         return true;    // renvoie true si le fichier existe

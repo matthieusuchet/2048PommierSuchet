@@ -58,9 +58,6 @@ ApplicationWindow {
                     Action {
                         text: qsTr("7")
                         onTriggered: vueObjPlat.changer_base(7)}
-                    Action {
-                        text: qsTr("11")
-                        onTriggered: vueObjPlat.changer_base(11)}
                 }
                 Menu {
                     title: qsTr("Couleurs")
