@@ -30,7 +30,11 @@ ApplicationWindow {
                     text: qsTr("Remettre meilleur score à zéro")
                     onTriggered: vueObjPlat.reset_best()}
                 MenuSeparator { }
-                Action { text: qsTr("Quit") }
+                Action {
+                    text: qsTr("Quitter (Esc)")
+                    shortcut: "Escape"
+                    onTriggered: Qt.quit()
+                }
 
                 focus : false
             }
