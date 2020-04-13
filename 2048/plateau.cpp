@@ -15,7 +15,9 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
     base = 2;
     jeuDeCouleurs = 1;
     score=0;
-    best_score = 0;
+    for(int i=0;i<4;i++){
+        best_scores[i] = 0;
+    }
     srand (time(NULL));
     init(loadGame()); //initialisation du plateau à partir de la partie sauvegagardée si elle existe
 }
@@ -34,18 +36,18 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
             }
         }
         score = partieStockee[16];
-        best_score = partieStockee[17];
-        if(partieStockee[18]){
+
+        if(partieStockee[17]){
             gagne = true; gagne_mais_continue = true;
         }else{
             gagne = false; gagne_mais_continue = false;
         }
-        base = partieStockee[19];
+        base = partieStockee[18];
+        for(int i=0; i<4; i++){
+            best_scores[i] = partieStockee[19+i];
+        }
     }else{        // si c'est la première fois qu'on joue OU en cours d'execution lors d'une nouvelle partie
-        if (score > best_score) // mise à jour du meilleur score
-            best_score = score;
         score = 0;
-
         for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
             for (int j=0; j<4; j++) {
                 tab[i][j].SetExp(0);
@@ -132,7 +134,7 @@ QList<QString> Plateau::readScores()
 {
     QList<QString> scores;
     scores.append(QString::number(score));      // score courant
-    scores.append(QString::number(best_score)); // meilleur score
+    scores.append(QString::number(best_scores[getIndBest()])); // meilleur score
     return scores;
 }
 
@@ -231,7 +233,7 @@ void Plateau::fusion(int x_old, int x_new)
     *vect_libres[x_new] = false;
 
     score += vect_tess[x_new]->GetScore(base);
-    if(score>best_score) best_score=score;
+    if(score>best_scores[getIndBest()]) best_scores[getIndBest()]=score;
 
     if(!gagne && vect_tess[x_new]->GetExp() == 11){
         gagne = true; // on a gagné quand 2048 (ou équivalent) est atteint
@@ -379,6 +381,26 @@ void Plateau::changer_base(int b)
     init(false);
 }
 
+int Plateau::getIndBest()   // donne l'indice correspondant à la base utilisée
+{
+    int r=0;
+    switch(base){
+        case 2:
+            r= 0;
+            break;
+        case 3:
+            r= 1;
+            break;
+        case 5:
+            r= 2;
+            break;
+        case 7:
+            r=3;
+            break;
+    }
+    return r;
+}
+
 void Plateau::changer_couleurs(int c)
 {
     jeuDeCouleurs = c;
@@ -387,7 +409,7 @@ void Plateau::changer_couleurs(int c)
 
 void Plateau::reset_best()
 {
-    best_score = 0;
+    best_scores[getIndBest()] = 0;
     plateauMoved();
 }
 
@@ -403,15 +425,16 @@ void Plateau::saveGame(){   // sauvegarde la partie en cours lors de la fermetur
             QTableau.append(tab[i][j].GetExp()); // sauvegarde des exposants de chaque tesselle dans l'ordre
         }
     }
-    QTableau.append(score);        // sauvegarde du score et du meilleur score
-    QTableau.append(best_score);
+    QTableau.append(score);        // sauvegarde du score courant
     if(gagne){       // sauvegarde l'état "a gagné ou non"
         QTableau.append(1);
     }else{
         QTableau.append(0);
     }
-
     QTableau.append(base);
+    for(int i=0;i<4;i++){       // sauvegarde des meilleurs scores pour chaque base
+        QTableau.append(best_scores[i]);
+    }
     QString filename="DernierePartie.dat";  // fichier .dat créé ou modifié dans le repertoire local
     QFile file( filename );
     if ( file.open(QIODevice::ReadWrite) )
@@ -428,7 +451,7 @@ bool Plateau::loadGame(){
         QDataStream in(&file);
         QList<int> QTableau;
         in >> QTableau;     // charge la QList contenue dans le fichier .dat
-        for(int i=0;i<20;i++){
+        for(int i=0;i<23;i++){
             partieStockee[i] = QTableau[i];
         }
         return true;    // renvoie true si le fichier existe
