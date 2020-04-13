@@ -14,9 +14,13 @@ Il est possible de changer la base utilisée pour les calculs, qui est 2 par dé
 Il est également possible de changer le jeu de couleurs des tesselles.
 
 Des raccoucis claviers sont disponibles (testés sous Windows):
+
 Ctrl+Z -> retour arrière
+
 Ctrl+Y -> retour avant
+
 Ctrl+N -> nouvelle partie
+
 Escape -> quitter l'application
 
 Lors de la fermeture de l'application la partie en cours est sauvegardée dans un fichier local .dat.
