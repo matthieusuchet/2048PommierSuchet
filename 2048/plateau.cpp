@@ -17,17 +17,17 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
     score=0;
     best_score = 0;
     srand (time(NULL));
-    init(loadGame());
+    init(loadGame()); //initialisation du plateau à partir de la partie sauvegagardée si elle existe
 }
 
 void Plateau::init(bool dejaJoue) // initialisation des variables pour un début de partie
 {
-    if(dejaJoue){
+    if(dejaJoue){   //si on a deja joué au jeu et qu'une partie est sauvegardée
         libres = 0;
         for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
             for (int j=0; j<4; j++) {
                 tab[i][j].SetExp(partieStockee[j+4*i]);
-                if(partieStockee[j+5*i] == 0){
+                if(partieStockee[j+4*i] == 0){
                     cases_libres[i][j] = true;
                     libres++;
                 }
@@ -35,8 +35,12 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
         }
         score = partieStockee[16];
         best_score = partieStockee[17];
-
-    }else{
+        if(partieStockee[18]){
+            gagne = true; gagne_mais_continue = true;
+        }else{
+            gagne = false; gagne_mais_continue = false;
+        }
+    }else{        // si c'est la première fois qu'on joue OU en cours d'execution lors d'une nouvelle partie
         if (score > best_score) // mise à jour du meilleur score
             best_score = score;
         score = 0;
@@ -49,7 +53,7 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
         }
         libres = 16;
         add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
-
+        gagne = false; gagne_mais_continue = false;
     }
 
     score_undo.clear(); score_redo.clear();
@@ -60,7 +64,7 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
             tab[i][j].coup(); // mise en mémoire du plateau initial
     }
 
-    gagne = false; gagne_mais_continue = false;
+
 
     // signaux pour QML
     partieDebOuFin();
@@ -418,26 +422,31 @@ void Plateau::reset_best()
     plateauMoved();
 }
 
-///
-/// sauvegarde de la dernière partie en cours
-///
+/// /////////////////////////////////////////////////
+/// gestion de la sauvegarde de la dernière partie //
+/// /////////////////////////////////////////////////
 
 
-void Plateau::saveGame(){
+void Plateau::saveGame(){   // sauvegarde la partie en cours lors de la fermeture de l'application
     QList<int> QTableau;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++) {
-            QTableau.append(tab[i][j].GetExp());
+            QTableau.append(tab[i][j].GetExp()); // sauvegarde des exposants de chaque tesselle dans l'ordre
         }
     }
-    QTableau.append(score);
+    QTableau.append(score);        // sauvegarde du score et du meilleur score
     QTableau.append(best_score);
-    QString filename="DernierePartie.dat";
+    if(gagne){       // sauvegarde l'état "a gagné ou non"
+        QTableau.append(1);
+    }else{
+        QTableau.append(0);
+    }
+    QString filename="DernierePartie.dat";  // fichier .dat créé ou modifié dans le repertoire local
     QFile file( filename );
     if ( file.open(QIODevice::ReadWrite) )
     {
         QDataStream out( &file );
-        out << QTableau;
+        out << QTableau;    // le fichier contient désormais la QList<int> QTableau et uniquement celle-ci
     }
 }
 
@@ -445,17 +454,14 @@ void Plateau::saveGame(){
 bool Plateau::loadGame(){
     QFile file("DernierePartie.dat");
     if(file.open(QIODevice::ReadOnly)){
-        QDataStream in(&file);    // read the data serialized from the file
+        QDataStream in(&file);
         QList<int> QTableau;
-        in >> QTableau;
-        for(int i=0;i<18;i++){
-            cout << QTableau[i] << " ";
+        in >> QTableau;     // charge la QList contenue dans le fichier .dat
+        for(int i=0;i<19;i++){
             partieStockee[i] = QTableau[i];
         }
-        cout << endl;
-
-        return true;
+        return true;    // renvoie true si le fichier existe
     }
-    return false;
+    return false;       // false sinon
 }
 

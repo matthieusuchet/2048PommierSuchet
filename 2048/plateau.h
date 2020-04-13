@@ -74,7 +74,7 @@ private:
     int best_score;
     int libres; // nombre de cases libres
     int base;
-    int partieStockee[18]; // initialiser ?
+    int partieStockee[19]; // initialiser ?
 
     // tableaux pour représenter la partie en cours
     Tesselle tab [4][4];      // tableau de Tesselles représentant les cases et les tesselles
