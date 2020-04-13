@@ -33,7 +33,10 @@ ApplicationWindow {
                 Action {
                     text: qsTr("Quitter (Esc)")
                     shortcut: "Escape"
-                    onTriggered: Qt.quit()
+                    onTriggered: {
+                        vueObjPlat.saveGame()
+                        Qt.quit()
+                    }
                 }
 
                 focus : false
