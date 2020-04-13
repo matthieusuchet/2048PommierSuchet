@@ -228,7 +228,7 @@ void Plateau::fusion(int x_old, int x_new)
     *vect_libres[x_new] = false;
 
     score += vect_tess[x_new]->GetScore(base);
-    if(!gagne && vect_tess[x_new]->GetScore(base) == 2048) gagne = true; // on a gagné quand 2048 est atteint
+    if(!gagne && vect_tess[x_new]->GetExp() == 11) gagne = true; // on a gagné quand 2048 (ou équivalent) est atteint
     libres ++;
 }
 
