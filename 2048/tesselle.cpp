@@ -7,8 +7,8 @@ Tesselle::Tesselle(int exposant)
 }
 
 
-ostream& operator<<(ostream &sortie, Tesselle &d) {
-    sortie << d.exp;
+ostream& operator<<(ostream &sortie, Tesselle &t) {
+    sortie << t.exp;
     return sortie;
 }
 
@@ -34,10 +34,36 @@ void Tesselle::Fusion()
     exp++;
 }
 
+void Tesselle::coup()
+{
+    memoire_undo.push_back(exp);
+    memoire_redo.clear();
+}
+
+
+void Tesselle::undo()
+{
+    if (memoire_undo.size() >= 1) {
+        memoire_redo.push_back(exp);
+        memoire_undo.pop_back();
+        exp = memoire_undo.back();
+
+    }
+}
+
+void Tesselle::redo()
+{
+    if (memoire_redo.size() >= 1) {
+        memoire_undo.push_back(memoire_redo.back());
+        memoire_redo.pop_back();
+        exp = memoire_undo.back();
+    }
+}
+
 // Couleur //
 int Tesselle::GetIndCouleur()
 {
-    int ind = exp-1;
+    int ind = exp;
     return ind;
 }
 

@@ -56,8 +56,6 @@ public:
     // gestion option pédagogique
     Q_INVOKABLE void undo(); // revenir au plateau précédent
     Q_INVOKABLE void redo(); // aller au plateau suivant
-    void copie_tab_mem(); // copier tab dans tab_mem [option pédagogique]
-    void echanger_mem(); // échanger les valeurs de tab et de tab_mem
 
     Q_INVOKABLE void changer_base(int b);
     Q_INVOKABLE void changer_couleurs(int c);
@@ -82,19 +80,18 @@ private:
     Tesselle* vect_tess[4]; // pointeurs sur les tesselles de tab
     bool *vect_libres[4];   // pointeurs sur les booléens de cases_libres
 
-    Tesselle tab_mem [4][4];     // mémorise le plateau du coup d'avant (ou d'après)
-    bool cases_libres_mem [4][4];// coordonnées des cases libres
-    int score_mem;    // mémorise le score du coup d'avant
-    bool a_deja_undo; // indique s'il s'agit du plateau suivant ou précédent
+    vector<int> score_undo; // mémorise les score des coups d'avant
+    vector<int> score_redo; // mémorise les score des coups d'après
+
     bool gagne;  // vrai si 2048 a été atteint
     bool gagne_mais_continue; // vrai si gagne=true et on continue à jouer
 
     // liste des couleurs classiques pour les tesselles
-    QString liste_coul [17] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#edcb60","#ecc84f","#edc43d","#eec22e","#77a135","#77a135","#77a135","#77a135","#77a135"};
+    QString liste_coul [18] = {"#ece4db","#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#edcb60","#ecc84f","#edc43d","#eec22e","#77a135","#77a135","#77a135","#77a135","#77a135"};
     // couleurs bleu
-    QString liste_coul_bleu [17] = {"#dae9f9","#c8cae7","#7ebce8","#7ecce7","#81c7b7","#71c2ac","#6365ac","#5357a2","#4c519f","#414d9c","#3b4b9b","#974292","#974292","#974292","#974292","#974292","#974292"};
+    QString liste_coul_bleu [18] = {"#dae9f9","#dae9f9","#c8cae7","#7ebce8","#7ecce7","#81c7b7","#71c2ac","#6365ac","#5357a2","#4c519f","#414d9c","#3b4b9b","#974292","#974292","#974292","#974292","#974292","#974292"};
     // couleurs jaune/vert
-    QString liste_coul_vert [17] = {"#f9f7d1","#e0eabc","#f7ec67","#feee55","#ffdb4d","#ffd52a","#97c349","#8dbe29","#7fba28","#78b82a","#71b62b","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9"};
+    QString liste_coul_vert [18] = {"#f9f7d1","#f9f7d1","#e0eabc","#f7ec67","#feee55","#ffdb4d","#ffd52a","#97c349","#8dbe29","#7fba28","#78b82a","#71b62b","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9","#2db6b9"};
     int jeuDeCouleurs;
 };
 

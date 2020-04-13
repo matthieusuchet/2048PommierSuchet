@@ -22,22 +22,29 @@ void Plateau::init() // initialisation des variables pour un début de partie
 
     if (score > best_score) // mise à jour du meilleur score
         best_score = score;
+    score = 0;
+    score_undo.clear(); score_redo.clear();
+    score_undo.push_back(score);
 
-    for (int i=0; i<4; i++) {
+    for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
         for (int j=0; j<4; j++) {
-            tab[i][j].SetExp(1);
+            tab[i][j].SetExp(0);
             cases_libres[i][j] = true;
         }
     }
-    score = 0; libres = 16;
+    libres = 16;
     add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
-    copie_tab_mem(); a_deja_undo = false; score_mem = 0;
-    gagne = false;
-    gagne_mais_continue = false;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++)
+            tab[i][j].coup(); // mise en mémoire du plateau initial
+    }
+    gagne = false; gagne_mais_continue = false;
 
     // signaux pour QML
     partieDebOuFin();
     plateauMoved();
+
+
 }
 
 
@@ -49,12 +56,8 @@ void Plateau::init() // initialisation des variables pour un début de partie
 QList<QString> Plateau::readMove(){
     QList<QString> listNombres;
     for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            if (cases_libres[i][j] == false)
-                listNombres.append(QString::number(tab[i][j].GetScore(base)));
-            else
-                listNombres.append(QString::number(0));
-        }
+        for (int j=0; j<4; j++)
+            listNombres.append(QString::number(tab[i][j].GetScore(base)));
     }
     return listNombres;
 }
@@ -62,12 +65,8 @@ QList<QString> Plateau::readMove(){
 QList<bool> Plateau::readVisible(){
     QList<bool> visibles;
     for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            if (cases_libres[i][j] == false)
-                visibles.append(true);
-            else
-                visibles.append(false);
-        }
+        for (int j=0; j<4; j++)
+            visibles.append((tab[i][j].GetExp() > 0));
     }
     return visibles;
 }
@@ -138,12 +137,8 @@ QList<bool> Plateau::readFinPartie(){
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            if (p.cases_libres[i][j] == false)
+        for (int j=0; j<4; j++)
                 sortie << p.tab[i][j] << " ";
-            else
-                sortie << 0 << " ";
-        }
         sortie << endl;
     };
     return sortie;
@@ -167,9 +162,6 @@ void Plateau::add_tesselle(int exp, int i, int j) // ajouter une tesselle au pla
 
 void Plateau::add_tesselle_random()
 {
-    //
-    // ajouter EXCEPTION si (libres == 0) //
-    //
     int b = rand() % libres; // case libre au hazard
     int c = 0;               // compteur
     int iplat; int jplat;    // coordonnées de la nouvelle tesselle
@@ -212,10 +204,8 @@ void Plateau::add_tesselle_random()
 
 void Plateau::deplacement(int x_old, int x_new)
 {
-    //
-    // ajouter EXCEPTION si ( cases_libres[x][y] = false ) //
-    //
     vect_tess[x_new]->SetExp(vect_tess[x_old]->GetExp());
+    vect_tess[x_old]->SetExp(0);
 
     *vect_libres[x_old] = true;
     *vect_libres[x_new] = false;
@@ -223,9 +213,7 @@ void Plateau::deplacement(int x_old, int x_new)
 
 void Plateau::fusion(int x_old, int x_new)
 {
-    //
-    // ajouter EXCEPTION si ( pas fusionnables ) //
-    //
+    vect_tess[x_old]->SetExp(0);
     vect_tess[x_new]->Fusion();
 
     *vect_libres[x_old] = true;
@@ -255,7 +243,6 @@ void Plateau::pointage_vect(int dir, int n)
 
 bool Plateau::move(int dir, bool jouer)
 {
-    copie_tab_mem();      // on mémorise le plateau avant de le modifier
     bool a_bouge = false; // vérifie si au moins un mouvent a été fait
 
     for (int n=0; n<4; n++) { // parcours les lignes ou colonnes selon la direction dir
@@ -301,10 +288,14 @@ bool Plateau::move(int dir, bool jouer)
 
     if (a_bouge && jouer) { // si le coup a conduit à un mouvement, on ajoute une nouvelle tesselle
         add_tesselle_random();
-        a_deja_undo = false;
+        for (int i=0; i<4; i++) {
+            for (int j=0; j<4; j++)
+                tab[i][j].coup(); // mise en mémoire du coup joué dans la classe Tesselle
+        }
+        score_undo.push_back(score);
+        score_redo.clear();
+        plateauMoved();
     }
-
-    plateauMoved();
 
     return a_bouge;
 }
@@ -335,56 +326,38 @@ void Plateau::continuer(){
 // gestion option pédagogique //
 // /////////////////////////////
 
-void Plateau::copie_tab_mem()
-{
-    score_mem = score;
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            tab_mem[i][j].SetExp(tab[i][j].GetExp());
-            cases_libres_mem[i][j] = cases_libres[i][j];
-        }
-    }
-}
-
-void Plateau::echanger_mem()
-{
-    // échanger le score
-    int score_aux = score;
-    score = score_mem;
-    score_mem = score_aux;
-
-    // échanger tab et cases_libres
-    for (int i=0; i<4; i++) {
-        for (int j=0; j<4; j++) {
-            // échanger les valeurs de tab et de tab_mem
-            int exp_aux = tab[i][j].GetExp();
-            tab[i][j].SetExp(tab_mem[i][j].GetExp());
-            tab_mem[i][j].SetExp(exp_aux);
-            // idem pour cases_libres et cases_libres_mem
-            bool case_aux = cases_libres[i][j];
-            cases_libres[i][j] = cases_libres_mem[i][j];
-            cases_libres_mem[i][j] = case_aux;
-        }
-    }
-}
-
 void Plateau::undo()
 {
-    if (! a_deja_undo) { // si le joueur n'est pas déjà revenu en arrière
-        echanger_mem();
-        a_deja_undo = true;
+    if (score_undo.size() > 1) {
+        for (int i=0; i<4; i++) {
+            for (int j=0; j<4; j++) {
+                tab[i][j].undo();
+                if (tab[i][j].GetExp() == 0) cases_libres[i][j] = true;
+                else cases_libres[i][j] = false;
+            }
+        }
+        score_redo.push_back(score);
+        score_undo.pop_back();
+        score = score_undo.back();
+        plateauMoved();
     }
-
-    plateauMoved();
 }
 
 void Plateau::redo()
 {
-    if (a_deja_undo) { // si c'est bien après un retour en arrière
-        echanger_mem();
-        a_deja_undo = false;
+    if (score_redo.size() > 1) {
+        for (int i=0; i<4; i++) {
+            for (int j=0; j<4; j++) {
+                tab[i][j].redo();
+                if (tab[i][j].GetExp() == 0) cases_libres[i][j] = true;
+                else cases_libres[i][j] = false;
+            }
+        }
+        score_undo.push_back(score_redo.back());
+        score_redo.pop_back();
+        score = score_undo.back();
+        plateauMoved();
     }
-    plateauMoved();
 }
 
 void Plateau::changer_base(int b)
