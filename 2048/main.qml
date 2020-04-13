@@ -737,6 +737,36 @@ ApplicationWindow {
                 font.pixelSize: 20
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+
+            Rectangle {
+                id: bouton_continuer
+                x: 105
+                y: 195
+                width: 130
+                height: 32
+                color: "#ffffff"
+                radius: 2
+
+                Text {
+                    id: txtBttContinuer
+                    text: qsTr("Continuer à jouer")
+                    anchors.rightMargin: 0
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 0
+                    font.bold: true
+                    anchors.fill: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 12
+                }
+
+                MouseArea {
+                    id: mouseArea_continuer
+                    anchors.fill: parent
+                    onClicked: vueObjPlat.continuer()
+                }
+            }
         }
     }
 

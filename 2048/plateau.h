@@ -51,6 +51,7 @@ public:
 
     // gestion fin de partie
     bool a_perdu(); // la partie est finie ? ie. table pleine + aucun déplacement licite
+    Q_INVOKABLE void continuer();    // continuer à jouer après avoir atteint 2048
 
     // gestion option pédagogique
     Q_INVOKABLE void undo(); // revenir au plateau précédent
@@ -86,7 +87,7 @@ private:
     int score_mem;    // mémorise le score du coup d'avant
     bool a_deja_undo; // indique s'il s'agit du plateau suivant ou précédent
     bool gagne;  // vrai si 2048 a été atteint
-
+    bool gagne_mais_continue; // vrai si gagne=true et on continue à jouer
 
     // liste des couleurs classiques pour les tesselles
     QString liste_coul [17] = {"#ece4db","#ebe0cb","#e9b381","#e8996c","#e78267","#e56847","#e9cf7f","#e8cc72","#edcb60","#ecc84f","#edc43d","#eec22e","#77a135","#77a135","#77a135","#77a135","#77a135"};

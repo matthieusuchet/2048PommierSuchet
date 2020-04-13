@@ -33,6 +33,7 @@ void Plateau::init() // initialisation des variables pour un début de partie
     add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
     copie_tab_mem(); a_deja_undo = false; score_mem = 0;
     gagne = false;
+    gagne_mais_continue = false;
 
     // signaux pour QML
     partieDebOuFin();
@@ -118,12 +119,15 @@ QList<bool> Plateau::readFinPartie(){
     QList<bool> ls_visibleGP;  // visible true/false
                                //pour calque gagné/perdu (dans cet ordre)
     if(score){
-        if(gagne){
+        if(gagne && !gagne_mais_continue){
             ls_visibleGP.append(true);
             ls_visibleGP.append(false);
-        }else{
+        }else if(a_perdu()){
             ls_visibleGP.append(false);
             ls_visibleGP.append(true);
+        }else if(gagne_mais_continue && !a_perdu()){
+            ls_visibleGP.append(false);
+            ls_visibleGP.append(false);
         }
     }else{      // score=0 -> début de partie
         ls_visibleGP.append(false);
@@ -228,7 +232,10 @@ void Plateau::fusion(int x_old, int x_new)
     *vect_libres[x_new] = false;
 
     score += vect_tess[x_new]->GetScore(base);
-    if(!gagne && vect_tess[x_new]->GetExp() == 11) gagne = true; // on a gagné quand 2048 (ou équivalent) est atteint
+    if(!gagne && vect_tess[x_new]->GetExp() == 4){
+        gagne = true; // on a gagné quand 2048 (ou équivalent) est atteint
+        partieDebOuFin();
+    }
     libres ++;
 }
 
@@ -318,6 +325,10 @@ bool Plateau::a_perdu()
     return false;
 }
 
+void Plateau::continuer(){
+    gagne_mais_continue = true;
+    partieDebOuFin();
+}
 
 
 // /////////////////////////////
