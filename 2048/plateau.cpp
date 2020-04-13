@@ -14,39 +14,57 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
 {
     base = 2;
     jeuDeCouleurs = 1;
-    init();
+    score=0;
     best_score = 0;
     srand (time(NULL));
-    loadGame();
+    init(loadGame());
 }
 
-void Plateau::init() // initialisation des variables pour un début de partie
+void Plateau::init(bool dejaJoue) // initialisation des variables pour un début de partie
 {
+    if(dejaJoue){
+        libres = 0;
+        for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
+            for (int j=0; j<4; j++) {
+                tab[i][j].SetExp(partieStockee[j+4*i]);
+                if(partieStockee[j+5*i] == 0){
+                    cases_libres[i][j] = true;
+                    libres++;
+                }
+            }
+        }
+        score = partieStockee[16];
+        best_score = partieStockee[17];
 
-    if (score > best_score) // mise à jour du meilleur score
-        best_score = score;
-    score = 0;
+    }else{
+        if (score > best_score) // mise à jour du meilleur score
+            best_score = score;
+        score = 0;
+
+        for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
+            for (int j=0; j<4; j++) {
+                tab[i][j].SetExp(0);
+                cases_libres[i][j] = true;
+            }
+        }
+        libres = 16;
+        add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
+
+    }
+
     score_undo.clear(); score_redo.clear();
     score_undo.push_back(score);
 
-    for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
-        for (int j=0; j<4; j++) {
-            tab[i][j].SetExp(0);
-            cases_libres[i][j] = true;
-        }
-    }
-    libres = 16;
-    add_tesselle_random(); add_tesselle_random(); // 2 tesselles pour commencer
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++)
             tab[i][j].coup(); // mise en mémoire du plateau initial
     }
+
     gagne = false; gagne_mais_continue = false;
 
     // signaux pour QML
     partieDebOuFin();
     plateauMoved();
-
 
 }
 
@@ -120,6 +138,19 @@ QList<QString> Plateau::readScores()
 QList<bool> Plateau::readFinPartie(){
     QList<bool> ls_visibleGP;  // visible true/false
                                //pour calque gagné/perdu (dans cet ordre)
+
+    if(a_perdu()){
+        ls_visibleGP.append(false);
+        ls_visibleGP.append(true);
+    }else if(gagne && !gagne_mais_continue){
+        ls_visibleGP.append(true);
+        ls_visibleGP.append(false);
+    }else{
+        ls_visibleGP.append(false);
+        ls_visibleGP.append(false);
+    }
+
+    /*
     if(score){
         if(gagne && !gagne_mais_continue){
             ls_visibleGP.append(true);
@@ -135,6 +166,8 @@ QList<bool> Plateau::readFinPartie(){
         ls_visibleGP.append(false);
         ls_visibleGP.append(false);
     }
+    */
+
     return ls_visibleGP;
 }
 
@@ -225,6 +258,8 @@ void Plateau::fusion(int x_old, int x_new)
     *vect_libres[x_new] = false;
 
     score += vect_tess[x_new]->GetScore(base);
+    if(score>best_score) best_score=score;
+
     if(!gagne && vect_tess[x_new]->GetExp() == 4){
         gagne = true; // on a gagné quand 2048 (ou équivalent) est atteint
         partieDebOuFin();
@@ -324,7 +359,6 @@ bool Plateau::a_perdu()
 void Plateau::continuer(){
     gagne_mais_continue = true;
     partieDebOuFin();
-    saveGame();
 }
 
 
@@ -369,7 +403,7 @@ void Plateau::redo()
 void Plateau::changer_base(int b)
 {
     base = b;
-    init();
+    init(false);
 }
 
 void Plateau::changer_couleurs(int c)
@@ -396,6 +430,8 @@ void Plateau::saveGame(){
             QTableau.append(tab[i][j].GetExp());
         }
     }
+    QTableau.append(score);
+    QTableau.append(best_score);
     QString filename="DernierePartie.dat";
     QFile file( filename );
     if ( file.open(QIODevice::ReadWrite) )
@@ -406,17 +442,20 @@ void Plateau::saveGame(){
 }
 
 
-void Plateau::loadGame(){
+bool Plateau::loadGame(){
     QFile file("DernierePartie.dat");
     if(file.open(QIODevice::ReadOnly)){
         QDataStream in(&file);    // read the data serialized from the file
         QList<int> QTableau;
         in >> QTableau;
-
-        for(int i=0;i<16;i++){
+        for(int i=0;i<18;i++){
             cout << QTableau[i] << " ";
+            partieStockee[i] = QTableau[i];
         }
         cout << endl;
+
+        return true;
     }
+    return false;
 }
 
