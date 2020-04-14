@@ -11,20 +11,22 @@ using namespace std;
 class Plateau : public QObject
 {
     Q_OBJECT
+
 public:
 
     explicit Plateau(QObject *parent = nullptr); // constructeur
-    Q_INVOKABLE void init(bool dejaJoue); // vide la table et ajoute 2 tesselles pour commencer la partie
+    Q_INVOKABLE void init(bool dejaJoue); // initialisation du plateau en début de partie
 
 
     /// interaction avec QML
+
     // propriétés d'objets QML modifiables depuis le C++
-    Q_PROPERTY(QList<QString> nombreQML READ readMove NOTIFY plateauMoved)
-    Q_PROPERTY(QList<bool> visibleQML READ readVisible NOTIFY plateauMoved)
-    Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved)
-    Q_PROPERTY(QList<QString> couleurtextQML READ readCoulText NOTIFY plateauMoved)
-    Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved)
-    Q_PROPERTY(QList<bool> finPartieQML READ readFinPartie NOTIFY partieDebOuFin)
+    Q_PROPERTY(QList<QString> nombreQML READ readMove NOTIFY plateauMoved) // nombres écrit sur les cases
+    Q_PROPERTY(QList<bool> visibleQML READ readVisible NOTIFY plateauMoved) // cases visibles ou non
+    Q_PROPERTY(QList<QString> couleurQML READ readCouleur NOTIFY plateauMoved) // couleur des cases
+    Q_PROPERTY(QList<QString> couleurtextQML READ readCoulText NOTIFY plateauMoved) // couleur du nombre sur la case
+    Q_PROPERTY(QList<QString> scoresQML READ readScores NOTIFY plateauMoved) // score de la partie en cours
+    Q_PROPERTY(QList<bool> finPartieQML READ readFinPartie NOTIFY partieDebOuFin) // affichage de calques gagné/perdu
 
     // lecture de ces propriétés depuis le C++ vers le QML
     QList<QString> readMove();
@@ -34,10 +36,11 @@ public:
     QList<QString> readScores();
     QList<bool> readFinPartie();
 
-    friend ostream& operator<<(ostream &sortie, Plateau &d); // opérateur <<
+    friend ostream& operator<<(ostream &sortie, Plateau &d);
 
 
     /// gestion du jeu
+
     // ajout des tesselles
     void add_tesselle(int exp, int i, int j); // ajout d'une tesselle sur le plateau aux coordonnées (i,j)
     void add_tesselle_random(); // ajoute une tesselle (2 ou 4) de façon aléatoire sur une case libre
@@ -48,29 +51,33 @@ public:
     void pointage_vect(int dir, int n); // fait pointer les attributs vect_tess et vect_libres vers n-ième ligne ou colonne, dans la direction dir de tab et cases_libres
     Q_INVOKABLE bool move(int dir, bool jouer = true); // maj du plateau lors d'un appui sur une flèche
                                                        // si jouer = false, on vaut juste vérifier si le coup mène à un déplacement, sans le jouer
-
     // gestion fin de partie
     bool a_perdu(); // la partie est finie ? ie. table pleine + aucun déplacement licite
-    Q_INVOKABLE void continuer();    // continuer à jouer après avoir atteint 2048
+    Q_INVOKABLE void continuer(); // continuer à jouer après avoir atteint 2048
 
     // gestion option pédagogique
     Q_INVOKABLE void undo(); // revenir au plateau précédent
     Q_INVOKABLE void redo(); // aller au plateau suivant
 
-    Q_INVOKABLE void changer_base(int b);
-    Q_INVOKABLE void changer_couleurs(int c);
+    // gestion du menu
+    Q_INVOKABLE void changer_base(int b);    // change la base, par défaut 2, peut être changé en 3, 5 ou 7
+    Q_INVOKABLE void changer_couleurs(int c);// change le set de couleurs utilisé pour les tesselles
+    Q_INVOKABLE void reset_best(); // réinitialise le meilleur score
+    int getIndBest(); // donne l'indice correspondant à la base utilisée pour avoir le best score correspondant à la base choisie
 
-    Q_INVOKABLE void reset_best();
-    int getIndBest();
-
+    // gestion de la sauvegarde de la dernière partie
     Q_INVOKABLE void saveGame();
     bool loadGame();
 
+
 signals:
+
     void plateauMoved();   // appelé à chaque déplacement des tesselles pour MAJ l'affichage
     void partieDebOuFin(); // appelé au début et à la fin de chaque partie pour cacher/afficher les calques "perdu"/"gagné"
 
+
 private:
+
     int score;
     int best_scores[4]; // best pour chaque base
     int libres; // nombre de cases libres

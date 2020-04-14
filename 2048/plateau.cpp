@@ -24,12 +24,13 @@ Plateau::Plateau(QObject *parent) : QObject(parent)
 
 void Plateau::init(bool dejaJoue) // initialisation des variables pour un début de partie
 {
-    if(dejaJoue){   //si on a deja joué au jeu et qu'une partie est sauvegardée
+    if(dejaJoue) { //si on a deja joué au jeu et qu'une partie est sauvegardée
+        // initialisation du Plateau à partir de la dernière sauvegarde
         libres = 0;
         for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
             for (int j=0; j<4; j++) {
                 tab[i][j].SetExp(partieStockee[j+4*i]);
-                if(partieStockee[j+4*i] == 0){
+                if (partieStockee[j+4*i] == 0) {
                     cases_libres[i][j] = true;
                     libres++;
                 }
@@ -37,16 +38,17 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
         }
         score = partieStockee[16];
 
-        if(partieStockee[17]){
-            gagne = true; gagne_mais_continue = true;
-        }else{
-            gagne = false; gagne_mais_continue = false;
-        }
+        if (partieStockee[17])
+            {gagne = true; gagne_mais_continue = true;}
+        else
+            {gagne = false; gagne_mais_continue = false;}
         base = partieStockee[18];
-        for(int i=0; i<4; i++){
+        for(int i=0; i<4; i++)
             best_scores[i] = partieStockee[19+i];
-        }
-    }else{        // si c'est la première fois qu'on joue OU en cours d'execution lors d'une nouvelle partie
+    }
+
+    else { // si c'est la première fois qu'on joue OU en cours d'execution lors d'une nouvelle partie
+        // initialisation du Plateau vide
         score = 0;
         for (int i=0; i<4; i++) { // initialisation de tab et cases_libres
             for (int j=0; j<4; j++) {
@@ -79,7 +81,8 @@ void Plateau::init(bool dejaJoue) // initialisation des variables pour un début
 // interaction QML /////////////
 // /////////////////////////////
 
-QList<QString> Plateau::readMove(){
+QList<QString> Plateau::readMove()
+{
     QList<QString> listNombres;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++)
@@ -88,7 +91,8 @@ QList<QString> Plateau::readMove(){
     return listNombres;
 }
 
-QList<bool> Plateau::readVisible(){
+QList<bool> Plateau::readVisible()
+{
     QList<bool> visibles;
     for (int i=0; i<4; i++) {
         for (int j=0; j<4; j++)
@@ -133,18 +137,16 @@ QList<QString> Plateau::readCoulText()
 QList<QString> Plateau::readScores()
 {
     QList<QString> scores;
-    scores.append(QString::number(score));      // score courant
+    scores.append(QString::number(score)); // score courant
     scores.append(QString::number(best_scores[getIndBest()])); // meilleur score
     return scores;
 }
 
+QList<bool> Plateau::readFinPartie() // visible true/false pour calque gagné/perdu (dans cet ordre)
+{
+    QList<bool> ls_visibleGP;
 
-
-QList<bool> Plateau::readFinPartie(){
-    QList<bool> ls_visibleGP;  // visible true/false
-                               //pour calque gagné/perdu (dans cet ordre)
-
-    if(a_perdu()){
+    if (a_perdu()) {
         ls_visibleGP.append(false);
         ls_visibleGP.append(true);
     }else if(gagne && !gagne_mais_continue){
@@ -157,8 +159,6 @@ QList<bool> Plateau::readFinPartie(){
 
     return ls_visibleGP;
 }
-
-///
 
 ostream& operator<<(ostream &sortie, Plateau &p) {
     for (int i=0; i<4; i++) {
@@ -175,14 +175,14 @@ ostream& operator<<(ostream &sortie, Plateau &p) {
 // ajout des tesselles /////////
 // /////////////////////////////
 
-void Plateau::add_tesselle(int exp, int i, int j) // ajouter une tesselle au plateau
+void Plateau::add_tesselle(int exp, int i, int j) // ajouter la tesselle d'exposant exp au plateau en (i,j)
 {
     tab[i][j].SetExp(exp);
     cases_libres[i][j] = false;
     libres --;
 }
 
-void Plateau::add_tesselle_random()
+void Plateau::add_tesselle_random() // ajoute une tesselle (2 ou 4) de façon aléatoire sur une case libre
 {
     int b = rand() % libres; // case libre au hazard
     int c = 0;               // compteur
@@ -193,7 +193,7 @@ void Plateau::add_tesselle_random()
             if (cases_libres[i][j]) { // on cherche la b-ième case libre
                 if (c == b)
                     {iplat = i; jplat = j;}
-                c++;
+                c++; // ou le meilleur électif
             }
         }
     }
@@ -206,7 +206,6 @@ void Plateau::add_tesselle_random()
     if (a_perdu()) {
         partieDebOuFin();
     }
-
 }
 
 
@@ -215,7 +214,7 @@ void Plateau::add_tesselle_random()
 // déplacements des tesselles //
 // /////////////////////////////
 
-void Plateau::deplacement(int x_old, int x_new)
+void Plateau::deplacement(int x_old, int x_new) // déplacer la tesselle initialement en x_old vers x_new dans le vecteur vect_tess
 {
     vect_tess[x_new]->SetExp(vect_tess[x_old]->GetExp());
     vect_tess[x_old]->SetExp(0);
@@ -224,7 +223,7 @@ void Plateau::deplacement(int x_old, int x_new)
     *vect_libres[x_new] = false;
 }
 
-void Plateau::fusion(int x_old, int x_new)
+void Plateau::fusion(int x_old, int x_new) // fusionne les deux tesselles en x_old et x_new en une seule en x_new
 {
     vect_tess[x_old]->SetExp(0);
     vect_tess[x_new]->Fusion();
@@ -232,31 +231,33 @@ void Plateau::fusion(int x_old, int x_new)
     *vect_libres[x_old] = true;
     *vect_libres[x_new] = false;
 
+    libres ++;
     score += vect_tess[x_new]->GetScore(base);
-    if(score>best_scores[getIndBest()]) best_scores[getIndBest()]=score;
+    if(score > best_scores[getIndBest()])
+        best_scores[getIndBest()] = score;
 
-    if(!gagne && vect_tess[x_new]->GetExp() == 11){
+    if(!gagne && vect_tess[x_new]->GetExp() == 11) {
         gagne = true; // on a gagné quand 2048 (ou équivalent) est atteint
         partieDebOuFin();
     }
-    libres ++;
 }
 
-void Plateau::pointage_vect(int dir, int n)
+void Plateau::pointage_vect(int dir, int n) // fait pointer les attributs vect_tess et vect_libres vers n-ième ligne ou colonne, dans la direction dir de tab et cases_libres
 {
     for (int k=0; k<4; k++) { // parcours des cases de chaque ligne ou colonne
-        if (dir == 1) // gauche
+        if (dir == 1) // gauche -> n-ième ligne de gauche à droite
             {vect_tess[k] = &tab[n][k]; vect_libres[k] = &cases_libres[n][k];}
-        if (dir == 2) //droite
+        if (dir == 2) //droite -> n-ième ligne de droite à gauche
             {vect_tess[k] = &tab[n][4-k-1]; vect_libres[k] = &cases_libres[n][4-k-1];}
-        if (dir == 3) // haut
+        if (dir == 3) // haut -> n-ième colonne de haut en bas
             {vect_tess[k] = &tab[k][n]; vect_libres[k] = &cases_libres[k][n];}
-        if (dir == 4) // bas
+        if (dir == 4) // bas -> n-ième colonne de bas en haut
             {vect_tess[k] = &tab[4-k-1][n]; vect_libres[k] = &cases_libres[4-k-1][n];}
     }
 }
 
-bool Plateau::move(int dir, bool jouer)
+bool Plateau::move(int dir, bool jouer) // maj du plateau lors d'un appui sur une flèche
+// si jouer = false, on vaut juste vérifier si le coup mène à un déplacement, sans le jouer
 {
     bool a_bouge = false; // vérifie si au moins un mouvent a été fait
 
@@ -269,11 +270,12 @@ bool Plateau::move(int dir, bool jouer)
 
         // on réalise un coup vers la gauche dans vect_libres suivant les règles du 2048
         bool deja_fusionne [4] = {false, false, false, false}; // verifie si une case a déjà fusionné pour pas qu'elle fusionne 2 fois
-        for (int j=1; j<4; j++) { // on saute la tesselle la plus à gauche (j=0) qui ne bougera pas de toute façon
+        for (int j=1; j<4; j++) { // on parcourt les cases de vect_tesselle
+            // on saute la tesselle la plus à gauche (j=0) qui ne bougera pas de toute façon
 
-            if (*vect_libres[j] == false) { // s'il y a une tesselle en indice j à considérer
+            if (*vect_libres[j] == false) { // s'il y a une tesselle sur la case en indice j
 
-                int j_avant = j; // indice de la derniere case vide à gauche
+                int j_avant = j; // on calcule j_avant, l'indice de la derniere case vide à gauche
                 while ((j_avant>=1) && (*vect_libres[j_avant-1] == true))
                     j_avant --;
 
@@ -302,12 +304,13 @@ bool Plateau::move(int dir, bool jouer)
     }
 
     if (a_bouge && jouer) { // si le coup a conduit à un mouvement, on ajoute une nouvelle tesselle
-        add_tesselle_random();
+        add_tesselle_random(); // le jeu continue : ajout d'une nouvelle tesselle, et il y a forcément la place
+                               // car il y a eu un mouvement à ce coup, donc au moins une case vide
         for (int i=0; i<4; i++) {
             for (int j=0; j<4; j++)
                 tab[i][j].coup(); // mise en mémoire du coup joué dans la classe Tesselle
         }
-        score_undo.push_back(score);
+        score_undo.push_back(score); // mise en mémoire du score obtenu
         score_redo.clear();
         plateauMoved();
     }
@@ -320,6 +323,7 @@ bool Plateau::move(int dir, bool jouer)
 // /////////////////////////////
 // gestion fin de partie ///////
 // /////////////////////////////
+
 bool Plateau::a_perdu()
 {
     // le joueur a perdu si aucune case n'est libre et qu'aucun mouvement n'est possible
@@ -331,10 +335,12 @@ bool Plateau::a_perdu()
     return false;
 }
 
-void Plateau::continuer(){
+void Plateau::continuer()
+{
     gagne_mais_continue = true;
     partieDebOuFin();
 }
+
 
 
 // /////////////////////////////
@@ -360,7 +366,7 @@ void Plateau::undo()
 
 void Plateau::redo()
 {
-    if (score_redo.size() > 1) {
+    if (score_redo.size() >= 1) {
         for (int i=0; i<4; i++) {
             for (int j=0; j<4; j++) {
                 tab[i][j].redo();
@@ -375,16 +381,23 @@ void Plateau::redo()
     }
 }
 
-void Plateau::changer_base(int b)
+
+
+// /////////////////////////////
+// gestion du menu /////////////
+// /////////////////////////////
+
+void Plateau::changer_base(int b) // change la base, par défaut 2, peut être changé en 3, 5 ou 7
 {
     base = b;
     init(false);
 }
 
-int Plateau::getIndBest()   // donne l'indice correspondant à la base utilisée
+int Plateau::getIndBest() // donne l'indice correspondant à la base utilisée, pour avoir le best score
+                          // correspondant à la base choisie
 {
     int r=0;
-    switch(base){
+    switch(base) {
         case 2:
             r= 0;
             break;
@@ -401,7 +414,7 @@ int Plateau::getIndBest()   // donne l'indice correspondant à la base utilisée
     return r;
 }
 
-void Plateau::changer_couleurs(int c)
+void Plateau::changer_couleurs(int c) // change le set de couleurs utilisé pour les tesselles
 {
     jeuDeCouleurs = c;
     plateauMoved();
@@ -413,10 +426,11 @@ void Plateau::reset_best()
     plateauMoved();
 }
 
-/// /////////////////////////////////////////////////
-/// gestion de la sauvegarde de la dernière partie //
-/// /////////////////////////////////////////////////
 
+
+// /////////////////////////////////////////////////
+// gestion de la sauvegarde de la dernière partie //
+// /////////////////////////////////////////////////
 
 void Plateau::saveGame(){   // sauvegarde la partie en cours lors de la fermeture de l'application
     QList<int> QTableau;
@@ -444,18 +458,17 @@ void Plateau::saveGame(){   // sauvegarde la partie en cours lors de la fermetur
     }
 }
 
-
 bool Plateau::loadGame(){
     QFile file("DernierePartie.dat");
     if(file.open(QIODevice::ReadOnly)){
         QDataStream in(&file);
         QList<int> QTableau;
-        in >> QTableau;     // charge la QList contenue dans le fichier .dat
+        in >> QTableau; // charge la QList contenue dans le fichier .dat
         for(int i=0;i<23;i++){
             partieStockee[i] = QTableau[i];
         }
-        return true;    // renvoie true si le fichier existe
+        return true; // renvoie true si le fichier existe
     }
-    return false;       // false sinon
+    return false; // false sinon
 }
 
